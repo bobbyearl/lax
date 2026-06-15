@@ -1,0 +1,136 @@
+/* Page layout */
+.page-container {
+  @apply max-w-6xl mx-auto p-6;
+}
+
+.page-container-wide {
+  @apply w-full px-6 py-6;
+}
+
+.page-title {
+  @apply text-3xl font-bold font-head mb-1;
+}
+
+.page-subtitle {
+  @apply text-muted-foreground mb-6;
+}
+
+/* Content split layout */
+.content-split {
+  @apply grid grid-cols-[1fr_1fr] gap-6;
+}
+
+.map-panel {
+  @apply sticky top-6;
+}
+
+/* Filter bar */
+.filter-bar {
+  @apply flex flex-wrap items-center gap-3;
+}
+
+.filter-search {
+  @apply w-48;
+}
+
+.filter-select {
+  @apply h-10 rounded border-2 border-border bg-input px-3 py-1.5 text-sm shadow-md focus:shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+}
+
+.filter-actions {
+  @apply ml-auto flex gap-1;
+}
+
+/* Map view */
+.map-toolbar {
+  @apply flex items-center gap-2;
+}
+
+.map-container {
+  @apply w-full h-[calc(100vh-220px)] min-h-[400px] rounded;
+}
+
+/* Map markers */
+.marker-pin {
+  @apply w-3 h-3 bg-primary rounded-full border-2 border-white shadow transition-all duration-200;
+}
+
+.marker-pin-active {
+  @apply w-5 h-5 bg-primary rounded-full border-2 border-white shadow-lg ring-4 ring-primary/30 scale-150 transition-all duration-200;
+}
+
+.marker-user {
+  @apply w-4 h-4 bg-blue-500 rounded-full border-3 border-white shadow-lg ring-4 ring-blue-200;
+}
+
+/* Info window */
+.info-window {
+  @apply p-1 max-w-48;
+}
+
+.gm-style-iw button[aria-label="Close"] {
+  margin: 0 !important;
+  padding: 4px !important;
+}
+
+.info-window-name {
+  @apply font-bold text-sm;
+}
+
+.info-window-location {
+  @apply text-xs text-gray-600;
+}
+
+.info-window-meta {
+  @apply text-xs mt-1;
+}
+
+.info-window-link {
+  @apply text-xs text-purple-600 hover:underline mt-1 inline-block;
+}
+
+/* List view */
+.list-table {
+  @apply w-full text-sm;
+}
+
+.list-thead {
+  @apply bg-accent text-left border-b-2;
+}
+
+.list-th {
+  @apply px-4 py-3 font-medium;
+}
+
+.list-row {
+  @apply hover:bg-accent/50;
+}
+
+.list-row-active {
+  @apply bg-primary/10;
+}
+
+.list-td {
+  @apply px-4 py-2.5;
+}
+
+.list-td-muted {
+  @apply px-4 py-2.5 text-muted-foreground;
+}
+
+.list-link {
+  @apply text-primary hover:underline font-medium;
+}
+
+/* Utilities */
+.view-stack {
+  @apply space-y-3;
+}
+
+.icon-sm {
+  @apply h-4 w-4;
+}
+
+.icon-sm-leading {
+  @apply h-4 w-4 mr-1.5;
+}
