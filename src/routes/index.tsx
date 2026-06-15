@@ -157,7 +157,7 @@ function Home() {
 
   return (
     <div className="page-container-wide">
-      <h1 className="page-title">Lax Map</h1>
+      <h1 className="page-title">Lax List</h1>
       <p className="page-subtitle">
         {listColleges.length.toLocaleString()} of {colleges.length.toLocaleString()} college lacrosse programs
       </p>
