@@ -295,8 +295,8 @@ function ListView({ colleges, hoveredId, onHover }: { colleges: College[]; hover
               <th className="list-th">Name</th>
               <th className="list-th">Location</th>
               <th className="list-th">League</th>
-              <th className="list-th">Division</th>
-              <th className="list-th">Conference</th>
+              <th className="list-th-hidden-mobile">Division</th>
+              <th className="list-th-hidden-mobile">Conference</th>
               <th className="list-th">Gender</th>
             </tr>
           </thead>
@@ -324,8 +324,8 @@ function ListView({ colleges, hoveredId, onHover }: { colleges: College[]; hover
                 </td>
                 <td className="list-td-muted">{c.city}, {c.state}</td>
                 <td className="list-td">{c.league}</td>
-                <td className="list-td">{c.division ?? '—'}</td>
-                <td className="list-td-muted">{c.conference ?? '—'}</td>
+                <td className="list-td-hidden-mobile">{c.division ?? '—'}</td>
+                <td className="list-td-hidden-mobile list-td-muted">{c.conference ?? '—'}</td>
                 <td className="list-td capitalize">{c.gender}</td>
               </tr>
             ))}

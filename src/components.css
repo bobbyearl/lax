@@ -4,37 +4,37 @@
 }
 
 .page-container-wide {
-  @apply w-full px-6 py-6;
+  @apply w-full px-4 py-4 sm:px-6 sm:py-6;
 }
 
 .page-title {
-  @apply text-3xl font-bold font-head mb-1;
+  @apply text-2xl sm:text-3xl font-bold font-head mb-1;
 }
 
 .page-subtitle {
-  @apply text-muted-foreground mb-6;
+  @apply text-muted-foreground mb-4 sm:mb-6 text-sm;
 }
 
 /* Content split layout */
 .content-split {
-  @apply grid grid-cols-[1fr_1fr] gap-6;
+  @apply flex flex-col lg:grid lg:grid-cols-[1fr_1fr] gap-4 lg:gap-6;
 }
 
 .map-panel {
-  @apply sticky top-6;
+  @apply lg:sticky lg:top-6 order-first lg:order-last;
 }
 
 /* Filter bar */
 .filter-bar {
-  @apply flex flex-wrap items-center gap-3;
+  @apply flex flex-wrap items-center gap-2 sm:gap-3;
 }
 
 .filter-search {
-  @apply w-48;
+  @apply w-full sm:w-48;
 }
 
 .filter-select {
-  @apply h-10 rounded border-2 border-border bg-input px-3 py-1.5 text-sm shadow-md focus:shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+  @apply h-9 sm:h-10 rounded border-2 border-border bg-input px-2 sm:px-3 py-1 sm:py-1.5 text-sm shadow-md focus:shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary flex-1 sm:flex-none min-w-0;
 }
 
 .filter-actions {
@@ -43,11 +43,11 @@
 
 /* Map view */
 .map-toolbar {
-  @apply flex items-center gap-2;
+  @apply flex flex-wrap items-center gap-2;
 }
 
 .map-container {
-  @apply w-full h-[calc(100vh-220px)] min-h-[400px] rounded;
+  @apply w-full h-[50vh] sm:h-[60vh] lg:h-[calc(100vh-220px)] min-h-[300px] rounded;
 }
 
 /* Map markers */
@@ -91,7 +91,7 @@
 
 /* List view */
 .list-table {
-  @apply w-full text-sm;
+  @apply w-full text-xs sm:text-sm;
 }
 
 .list-thead {
@@ -99,7 +99,7 @@
 }
 
 .list-th {
-  @apply px-4 py-3 font-medium;
+  @apply px-2 sm:px-4 py-2 sm:py-3 font-medium;
 }
 
 .list-row {
@@ -111,11 +111,19 @@
 }
 
 .list-td {
-  @apply px-4 py-2.5;
+  @apply px-2 sm:px-4 py-2 sm:py-2.5;
 }
 
 .list-td-muted {
-  @apply px-4 py-2.5 text-muted-foreground;
+  @apply px-2 sm:px-4 py-2 sm:py-2.5 text-muted-foreground;
+}
+
+.list-td-hidden-mobile {
+  @apply hidden md:table-cell px-2 sm:px-4 py-2 sm:py-2.5;
+}
+
+.list-th-hidden-mobile {
+  @apply hidden md:table-cell px-2 sm:px-4 py-2 sm:py-3 font-medium;
 }
 
 .list-link {
