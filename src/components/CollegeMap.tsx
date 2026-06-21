@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { APIProvider, Map, useMap, InfoWindow, AdvancedMarker, useMapsLibrary } from '@vis.gl/react-google-maps'
 import { MarkerClusterer, SuperClusterAlgorithm } from '@googlemaps/markerclusterer'
+import { useTheme } from './ThemeProvider'
 
 const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID
@@ -40,6 +41,8 @@ export function CollegeMap({
   onCameraChange?: (center: { lat: number; lng: number }, zoom: number, bounds: { north: number; south: number; east: number; west: number }) => void
 }) {
   const [selected, setSelected] = useState<College | null>(null)
+  const { theme } = useTheme()
+  const colorScheme = theme === 'system' ? 'FOLLOW_SYSTEM' : theme === 'dark' ? 'DARK' : 'LIGHT'
 
   return (
     <APIProvider apiKey={API_KEY}>
@@ -47,6 +50,7 @@ export function CollegeMap({
         defaultCenter={initialCenter ?? DEFAULT_CENTER}
         defaultZoom={initialZoom ?? DEFAULT_ZOOM}
         mapId={MAP_ID}
+        colorScheme={colorScheme}
         className="map-container"
         gestureHandling="greedy"
         onClick={() => setSelected(null)}

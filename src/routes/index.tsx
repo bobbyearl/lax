@@ -6,6 +6,7 @@ import { Input } from '@/components/retroui/Input'
 import { Card } from '@/components/retroui/Card'
 import { CollegeMap } from '@/components/CollegeMap'
 import { Map as MapIcon, MapPin, Layers, RotateCcw } from 'lucide-react'
+import { ThemeToggle } from '@/components/ThemeToggle'
 import collegeData from '../data/2026-06-15.json'
 
 type College = (typeof collegeData.colleges)[number]
@@ -157,7 +158,10 @@ function Home() {
 
   return (
     <div className="page-container-wide">
-      <h1 className="page-title">Lax List</h1>
+      <div className="flex items-center justify-between mb-1">
+        <h1 className="page-title mb-0">Lax List</h1>
+        <ThemeToggle />
+      </div>
       <p className="page-subtitle">
         {listColleges.length.toLocaleString()} of {colleges.length.toLocaleString()} college lacrosse programs
       </p>
