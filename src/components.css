@@ -78,7 +78,7 @@
 }
 
 .info-window-location {
-  @apply text-xs text-gray-600;
+  @apply text-xs text-muted-foreground;
 }
 
 .info-window-meta {
@@ -86,7 +86,7 @@
 }
 
 .info-window-link {
-  @apply text-xs text-purple-600 hover:underline mt-1 inline-block;
+  @apply text-xs text-primary hover:underline mt-1 inline-block;
 }
 
 /* List view */
