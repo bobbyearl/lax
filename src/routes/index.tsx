@@ -1,12 +1,14 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/retroui/Button'
 import { Input } from '@/components/retroui/Input'
 import { Card } from '@/components/retroui/Card'
 import { CollegeMap } from '@/components/CollegeMap'
-import { Map as MapIcon, MapPin, Layers, RotateCcw } from 'lucide-react'
+import { Map as MapIcon, MapPin, Layers, RotateCcw, Star, Trash2, Mail } from 'lucide-react'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { useFavorites } from '@/components/FavoritesProvider'
+import { EmailComposer } from '@/components/EmailComposer'
 import collegeData from '../data/2026-06-15.json'
 
 type College = (typeof collegeData.colleges)[number]
@@ -23,6 +25,8 @@ type SearchParams = {
   gender?: string
   state?: string
   search?: string
+  conference?: string
+  favorites?: '1'
 }
 
 export const Route = createFileRoute('/')({
@@ -39,6 +43,8 @@ export const Route = createFileRoute('/')({
     gender: (search.gender as string) || undefined,
     state: (search.state as string) || undefined,
     search: (search.search as string) || undefined,
+    conference: (search.conference as string) || undefined,
+    favorites: search.favorites === '1' ? '1' : undefined,
   }),
 })
 
@@ -57,6 +63,8 @@ function useFilters() {
   const gender = params.gender ?? ''
   const state = params.state ?? ''
   const search = params.search ?? ''
+  const conference = params.conference ?? ''
+  const showFavorites = params.favorites === '1'
   const navigate = useNavigate({ from: '/' })
 
   const setFilter = (updates: Partial<SearchParams>) => {
@@ -73,19 +81,20 @@ function useFilters() {
   const clearFilters = () => {
     navigate({
       search: (prev) => {
-        const { league: _, division: _d, gender: _g, state: _s, search: _q, ...rest } = prev as Record<string, string>
+        const { league: _, division: _d, gender: _g, state: _s, search: _q, conference: _c, ...rest } = prev as Record<string, string>
         return rest as SearchParams
       },
     })
   }
 
-  return { league, division, gender, state, search, setFilter, clearFilters }
+  return { league, division, gender, state, search, conference, showFavorites, setFilter, clearFilters }
 }
 
 function Home() {
   const { data: colleges } = useColleges()
-  const { league, division, gender, state, search, setFilter, clearFilters } =
+  const { league, division, gender, state, search, conference, showFavorites, setFilter, clearFilters } =
     useFilters()
+  const { favorites, count: favCount } = useFavorites()
   const clustered = Route.useSearch().clustered === '1'
   const syncList = Route.useSearch().syncList !== '0'
   const showMap = Route.useSearch().map === '1'
@@ -93,6 +102,7 @@ function Home() {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [resetKey, setResetKey] = useState(0)
   const [bounds, setBounds] = useState<{ north: number; south: number; east: number; west: number } | null>(null)
+  const [showEmail, setShowEmail] = useState(false)
 
   const params = Route.useSearch()
   const initialCenter = params.lat && params.lng
@@ -122,17 +132,42 @@ function Home() {
   }
 
   const options = useMemo(() => {
-    const unique = (key: keyof College) =>
-      [...new Set(colleges.map((c) => c[key]))]
+    // Each dropdown shows only values that exist given the OTHER active filters
+    const matchesOtherFilters = (c: College, excludeFilter: string) => {
+      if (excludeFilter !== 'league' && league && c.league !== league) return false
+      if (excludeFilter !== 'division' && division && c.division !== division) return false
+      if (excludeFilter !== 'gender' && gender && c.gender !== gender) return false
+      if (excludeFilter !== 'state' && state && c.state !== state) return false
+      if (excludeFilter !== 'conference' && conference && c.conference !== conference) return false
+      if (search && !c.name.toLowerCase().includes(search.toLowerCase())) return false
+      if (showFavorites && !favorites.has(c.id)) return false
+      return true
+    }
+
+    const unique = (key: keyof College, filterName: string) =>
+      [...new Set(colleges.filter((c) => matchesOtherFilters(c, filterName)).map((c) => c[key]))]
         .filter(Boolean)
         .sort() as string[]
+
     return {
-      leagues: unique('league'),
-      divisions: unique('division'),
-      genders: unique('gender'),
-      states: unique('state'),
+      leagues: unique('league', 'league'),
+      divisions: unique('division', 'division'),
+      genders: unique('gender', 'gender'),
+      states: unique('state', 'state'),
+      conferences: unique('conference', 'conference'),
     }
-  }, [colleges])
+  }, [colleges, league, division, gender, state, search, conference, showFavorites, favorites])
+
+  // Auto-clear filters whose selected value no longer exists in the available options
+  useEffect(() => {
+    const stale: Partial<SearchParams> = {}
+    if (league && !options.leagues.includes(league)) stale.league = undefined
+    if (division && !options.divisions.includes(division)) stale.division = undefined
+    if (gender && !options.genders.includes(gender)) stale.gender = undefined
+    if (state && !options.states.includes(state)) stale.state = undefined
+    if (conference && !options.conferences.includes(conference)) stale.conference = undefined
+    if (Object.keys(stale).length > 0) setFilter(stale)
+  }, [options, league, division, gender, state, conference, setFilter])
 
   const filtered = useMemo(() => {
     return colleges.filter((c) => {
@@ -140,13 +175,15 @@ function Home() {
       if (division && c.division !== division) return false
       if (gender && c.gender !== gender) return false
       if (state && c.state !== state) return false
+      if (conference && c.conference !== conference) return false
       if (search && !c.name.toLowerCase().includes(search.toLowerCase()))
         return false
+      if (showFavorites && !favorites.has(c.id)) return false
       return true
     })
-  }, [colleges, league, division, gender, state, search])
+  }, [colleges, league, division, gender, state, search, conference, showFavorites, favorites])
 
-  const hasFilters = !!(league || division || gender || state || search)
+  const hasFilters = !!(league || division || gender || state || search || conference)
 
   const listColleges = useMemo(() => {
     if (!syncList || !bounds) return filtered
@@ -160,7 +197,26 @@ function Home() {
     <div className="page-container-wide">
       <div className="flex items-center justify-between mb-1">
         <h1 className="page-title mb-0">Lax List</h1>
-        <ThemeToggle />
+        <div className="flex items-center gap-2">
+          {favCount > 0 && (
+            <button
+              onClick={() => setShowEmail(true)}
+              className="header-email-btn"
+              title="Email coaches"
+            >
+              <Mail className="h-4 w-4" />
+            </button>
+          )}
+          <button
+            onClick={() => setFilter({ favorites: showFavorites ? undefined : '1' })}
+            className={`header-fav-btn ${showFavorites ? 'header-fav-btn-active' : ''}`}
+            title={showFavorites ? 'Show all' : 'Show favorites'}
+          >
+            <Star className={`h-4 w-4 ${showFavorites ? 'fill-current' : ''}`} />
+            {favCount > 0 && <span className="header-fav-count">{favCount}</span>}
+          </button>
+          <ThemeToggle />
+        </div>
       </div>
       <p className="page-subtitle">
         {listColleges.length.toLocaleString()} of {colleges.length.toLocaleString()} college lacrosse programs
@@ -173,7 +229,7 @@ function Home() {
               placeholder="Search by name..."
               value={search || ''}
               onChange={(e) => setFilter({ search: e.target.value })}
-              className="filter-search"
+              className="filter-search filter-input"
             />
             <FilterSelect
               value={gender || ''}
@@ -194,13 +250,19 @@ function Home() {
               label="Division"
             />
             <FilterSelect
+              value={conference || ''}
+              onChange={(v) => setFilter({ conference: v })}
+              options={options.conferences}
+              label="Conference"
+            />
+            <FilterSelect
               value={state || ''}
               onChange={(v) => setFilter({ state: v })}
               options={options.states}
               label="State"
             />
             {hasFilters && (
-              <Button variant="link" onClick={clearFilters} size="sm">
+              <Button variant="link" onClick={clearFilters} size="sm" className="filter-btn">
                 Clear all
               </Button>
             )}
@@ -209,6 +271,7 @@ function Home() {
               <Button
                 variant={showMap ? 'default' : 'outline'}
                 size="icon"
+                className="filter-btn w-9 sm:w-10"
                 onClick={() => {
                   if (showMap) {
                     setFilter({ map: undefined, lat: undefined, lng: undefined, zoom: undefined, clustered: undefined, syncList: undefined })
@@ -285,17 +348,37 @@ function Home() {
           </div>
         )}
       </div>
+
+      {showEmail && (
+        <EmailComposer
+          colleges={colleges}
+          onClose={() => setShowEmail(false)}
+        />
+      )}
     </div>
   )
 }
 
 function ListView({ colleges, hoveredId, onHover }: { colleges: College[]; hoveredId: string | null; onHover: (id: string | null) => void }) {
+  const { toggle, isFavorite, count, clear } = useFavorites()
+  const showFavorites = Route.useSearch().favorites === '1'
+
   return (
     <Card className="w-full overflow-hidden">
+      {showFavorites && count > 0 && (
+        <div className="flex items-center justify-between px-2 sm:px-4 py-2 border-b-2 bg-accent">
+          <span className="text-xs text-muted-foreground">{count} favorite{count !== 1 ? 's' : ''}</span>
+          <Button variant="link" size="sm" onClick={clear} className="text-xs">
+            <Trash2 className="h-3 w-3 mr-1" />
+            Clear all
+          </Button>
+        </div>
+      )}
       <div className="overflow-x-auto">
         <table className="list-table">
           <thead className="list-thead">
             <tr>
+              <th className="list-th w-8"></th>
               <th className="list-th">Name</th>
               <th className="list-th">Location</th>
               <th className="list-th">League</th>
@@ -312,6 +395,15 @@ function ListView({ colleges, hoveredId, onHover }: { colleges: College[]; hover
                 onMouseEnter={() => onHover(c.id)}
                 onMouseLeave={() => onHover(null)}
               >
+                <td className="list-td px-1 sm:px-2 text-center">
+                  <button
+                    onClick={() => toggle(c.id)}
+                    className="fav-btn"
+                    aria-label={isFavorite(c.id) ? 'Remove from favorites' : 'Add to favorites'}
+                  >
+                    <Star className={`h-3.5 w-3.5 ${isFavorite(c.id) ? 'fill-current text-amber-500' : 'text-muted-foreground'}`} />
+                  </button>
+                </td>
                 <td className="list-td">
                   {c.team_website_url ? (
                     <a
@@ -324,6 +416,11 @@ function ListView({ colleges, hoveredId, onHover }: { colleges: College[]; hover
                     </a>
                   ) : (
                     c.name
+                  )}
+                  {'first_season' in c && (c as Record<string, unknown>).first_season && (
+                    <span className="first-season-badge" title={`First season: ${(c as Record<string, unknown>).first_season}`}>
+                      *{(c as Record<string, unknown>).first_season}
+                    </span>
                   )}
                 </td>
                 <td className="list-td-muted">{c.city}, {c.state}</td>

@@ -33,8 +33,16 @@
   @apply w-full sm:w-48;
 }
 
+.filter-input {
+  @apply h-9 sm:h-10 py-0;
+}
+
 .filter-select {
-  @apply h-9 sm:h-10 rounded border-2 border-border bg-input px-2 sm:px-3 py-1 sm:py-1.5 text-sm shadow-md focus:shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary flex-1 sm:flex-none min-w-0;
+  @apply h-9 sm:h-10 rounded border-2 border-border bg-input px-2 sm:px-3 py-0 text-sm shadow-md focus:shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary flex-1 sm:flex-none min-w-0;
+}
+
+.filter-btn {
+  @apply h-9 sm:h-10 px-3 text-sm;
 }
 
 .filter-actions {
@@ -128,6 +136,125 @@
 
 .list-link {
   @apply text-primary hover:underline font-medium;
+}
+
+/* Favorites */
+.fav-btn {
+  @apply p-0.5 rounded transition-colors hover:text-amber-500 cursor-pointer;
+}
+
+.header-fav-btn {
+  @apply h-8 px-2 flex items-center gap-1.5 rounded border-2 border-border bg-input text-sm shadow-md transition-colors cursor-pointer hover:bg-accent;
+}
+
+.header-fav-btn-active {
+  @apply bg-primary text-primary-foreground border-primary hover:bg-primary-hover;
+}
+
+.header-fav-count {
+  @apply text-xs font-medium;
+}
+
+/* First season badge */
+.first-season-badge {
+  @apply ml-1.5 text-[10px] font-medium text-muted-foreground align-super;
+}
+
+/* Email composer */
+.email-overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4;
+}
+
+.email-modal {
+  @apply bg-background border-2 border-border rounded shadow-lg w-[calc(100vw-2rem)] max-w-[1400px] h-[calc(100vh-2rem)] flex flex-col;
+}
+
+.email-header {
+  @apply flex items-start justify-between p-4 border-b-2;
+}
+
+.email-close-btn {
+  @apply p-1 rounded hover:bg-accent cursor-pointer transition-colors;
+}
+
+.email-footer {
+  @apply flex items-center justify-between p-4 border-t-2;
+}
+
+.email-textarea {
+  @apply w-full rounded border-2 border-border bg-input p-3 text-sm font-mono resize-y focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary placeholder:text-muted-foreground;
+}
+
+.email-template-grid {
+  @apply grid grid-cols-1 md:grid-cols-[1fr_380px] gap-4;
+}
+
+.email-review-grid {
+  @apply grid grid-cols-1 md:grid-cols-[1fr_380px] gap-4 flex-1 min-h-0;
+}
+
+.email-vars-panel {
+  @apply p-3 rounded border-2 border-border bg-accent/30 overflow-y-auto;
+}
+
+.email-var-row {
+  @apply flex items-baseline gap-2 py-0.5 whitespace-nowrap;
+}
+
+.email-data-table {
+  @apply rounded border-2 border-border overflow-hidden;
+}
+
+.email-data-header {
+  @apply grid grid-cols-[200px_1fr_1fr] gap-4 px-3 py-2 bg-accent text-xs font-medium border-b-2;
+}
+
+.email-data-row {
+  @apply grid grid-cols-[200px_1fr_1fr] gap-4 px-3 py-1.5 text-xs border-b border-border/50 last:border-b-0;
+}
+
+.email-warning {
+  @apply flex items-start gap-2 p-2 rounded bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/30;
+}
+
+.email-verify-banner {
+  @apply flex items-start gap-2 p-2 rounded bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/30;
+}
+
+.email-var-code {
+  @apply px-1 py-0.5 rounded bg-accent text-xs font-mono;
+}
+
+.email-preview {
+  @apply whitespace-pre-wrap text-sm p-3 rounded border-2 border-border bg-accent/50 min-h-32;
+}
+
+.email-unfilled-var {
+  @apply px-1 py-0.5 rounded bg-amber-500/20 text-amber-700 dark:text-amber-400 font-mono text-xs;
+}
+
+.email-coach-pill {
+  @apply px-2 py-1 text-xs rounded border border-border bg-input cursor-pointer transition-colors hover:bg-accent;
+}
+
+.email-coach-pill-active {
+  @apply bg-primary text-primary-foreground border-primary;
+}
+
+.email-edit-coaches-btn {
+  @apply flex items-center gap-1 px-2 py-1 text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors;
+}
+
+.email-coach-input {
+  @apply w-full text-xs rounded border border-border bg-input px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-primary;
+}
+
+.email-coach-remove {
+  @apply p-1 text-muted-foreground hover:text-red-500 cursor-pointer transition-colors mt-1;
+}
+
+.header-email-btn {
+  @apply h-8 px-2 flex items-center gap-1.5 rounded border-2 border-border bg-input text-sm shadow-md transition-colors cursor-pointer hover:bg-accent;
 }
 
 /* Utilities */
