@@ -1,9 +1,9 @@
-@import "tailwindcss";
-@import "./components.css";
+@import 'tailwindcss';
+@import './components.css';
 
 @theme {
-  --font-head: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-head: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 
   --color-primary: #8b5cf6;
   --color-primary-hover: #7c3aed;
@@ -51,5 +51,7 @@ body {
   font-family: var(--font-sans);
   background-color: var(--color-background);
   color: var(--color-foreground);
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 }

@@ -1,5 +1,6 @@
 import Handlebars from 'handlebars'
-import { type Coach, splitName } from './coaches'
+import { splitName } from './coaches'
+import type { Coach } from './coaches'
 
 const TEMPLATE_KEY = 'lax-email-template'
 
@@ -48,8 +49,14 @@ export const SUPPORTED_VARS: { key: string; desc: string }[] = [
 
 export const CONDITIONALS_HELP: { syntax: string; desc: string }[] = [
   { syntax: '{{#if DC_FULL}}...{{/if}}', desc: 'Show block only if DC exists' },
-  { syntax: '{{#if HC_EMAIL}}...{{/if}}', desc: 'Show block only if HC email exists' },
-  { syntax: '{{#unless RC_FULL}}...{{/unless}}', desc: 'Show block only if RC is missing' },
+  {
+    syntax: '{{#if HC_EMAIL}}...{{/if}}',
+    desc: 'Show block only if HC email exists',
+  },
+  {
+    syntax: '{{#unless RC_FULL}}...{{/unless}}',
+    desc: 'Show block only if RC is missing',
+  },
 ]
 
 export function buildContext(
@@ -138,7 +145,9 @@ export function resolveAllVars(
 }
 
 export function findUnknownVars(template: string): string[] {
-  const known = new Set(SUPPORTED_VARS.map((v) => v.key.replace(/^\{\{|\}\}$/g, '')))
+  const known = new Set(
+    SUPPORTED_VARS.map((v) => v.key.replace(/^\{\{|\}\}$/g, '')),
+  )
   // Match simple {{VAR}} but not {{#if ...}} or {{/if}} or {{else}}
   const matches = template.match(/\{\{([A-Z][A-Z_]*)\}\}/g) ?? []
   const unknowns: string[] = []

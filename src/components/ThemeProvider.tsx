@@ -19,7 +19,10 @@ function getResolved(theme: Theme) {
 }
 
 function apply(theme: Theme) {
-  document.documentElement.classList.toggle('dark', getResolved(theme) === 'dark')
+  document.documentElement.classList.toggle(
+    'dark',
+    getResolved(theme) === 'dark',
+  )
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {

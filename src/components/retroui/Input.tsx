@@ -1,13 +1,14 @@
-import React, { type InputHTMLAttributes } from "react";
+import React from 'react'
+import type { InputHTMLAttributes } from 'react'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  className?: string;
+  className?: string
 }
 
 export const Input: React.FC<InputProps> = ({
-  type = "text",
-  placeholder = "Enter text",
-  className = "",
+  type = 'text',
+  placeholder = 'Enter text',
+  className = '',
   ...props
 }) => {
   return (
@@ -15,11 +16,11 @@ export const Input: React.FC<InputProps> = ({
       type={type}
       placeholder={placeholder}
       className={`px-4 py-2 w-full rounded border-2 shadow-md transition bg-input text-foreground placeholder:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary focus:shadow-xs ${
-        props["aria-invalid"]
-          ? "border-destructive text-destructive shadow-xs shadow-destructive"
-          : ""
+        props['aria-invalid']
+          ? 'border-destructive text-destructive shadow-xs shadow-destructive'
+          : ''
       } ${className}`}
       {...props}
     />
-  );
-};
+  )
+}

@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 
 type FavoritesContextType = {
   favorites: Set<string>
@@ -57,7 +63,9 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   const clear = useCallback(() => setFavorites(new Set()), [])
 
   return (
-    <FavoritesContext.Provider value={{ favorites, toggle, isFavorite, clear, count: favorites.size }}>
+    <FavoritesContext.Provider
+      value={{ favorites, toggle, isFavorite, clear, count: favorites.size }}
+    >
       {children}
     </FavoritesContext.Provider>
   )

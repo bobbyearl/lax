@@ -1,6 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
-import { APIProvider, Map, useMap, InfoWindow, AdvancedMarker, useMapsLibrary } from '@vis.gl/react-google-maps'
-import { MarkerClusterer, SuperClusterAlgorithm } from '@googlemaps/markerclusterer'
+import {
+  APIProvider,
+  Map,
+  useMap,
+  InfoWindow,
+  AdvancedMarker,
+  useMapsLibrary,
+} from '@vis.gl/react-google-maps'
+import {
+  MarkerClusterer,
+  SuperClusterAlgorithm,
+} from '@googlemaps/markerclusterer'
 import { useTheme } from './ThemeProvider'
 
 const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
@@ -38,11 +48,16 @@ export function CollegeMap({
   initialCenter?: { lat: number; lng: number }
   initialZoom?: number
   resetKey?: number
-  onCameraChange?: (center: { lat: number; lng: number }, zoom: number, bounds: { north: number; south: number; east: number; west: number }) => void
+  onCameraChange?: (
+    center: { lat: number; lng: number },
+    zoom: number,
+    bounds: { north: number; south: number; east: number; west: number },
+  ) => void
 }) {
   const [selected, setSelected] = useState<College | null>(null)
   const { theme } = useTheme()
-  const colorScheme = theme === 'system' ? 'FOLLOW_SYSTEM' : theme === 'dark' ? 'DARK' : 'LIGHT'
+  const colorScheme =
+    theme === 'system' ? 'FOLLOW_SYSTEM' : theme === 'dark' ? 'DARK' : 'LIGHT'
 
   return (
     <APIProvider apiKey={API_KEY}>
@@ -57,20 +72,23 @@ export function CollegeMap({
         onCameraChanged={(ev) => {
           if (!onCameraChange) return
           const { center, zoom, bounds } = ev.detail
-          if (bounds) {
-            onCameraChange(
-              { lat: center.lat, lng: center.lng },
-              zoom,
-              { north: bounds.north, south: bounds.south, east: bounds.east, west: bounds.west },
-            )
-          }
+          onCameraChange({ lat: center.lat, lng: center.lng }, zoom, {
+            north: bounds.north,
+            south: bounds.south,
+            east: bounds.east,
+            west: bounds.west,
+          })
         }}
       >
         <ResetMap resetKey={resetKey} />
         {clustered ? (
           <ClusteredMarkers colleges={colleges} onSelect={setSelected} />
         ) : (
-          <UnclustteredMarkers colleges={colleges} onSelect={setSelected} hoveredId={hoveredId} />
+          <UnclustteredMarkers
+            colleges={colleges}
+            onSelect={setSelected}
+            hoveredId={hoveredId}
+          />
         )}
         {userLocation && (
           <>
@@ -84,7 +102,9 @@ export function CollegeMap({
           <InfoWindow
             position={{ lat: selected.lat, lng: selected.lng }}
             onCloseClick={() => setSelected(null)}
-            headerContent={<span className="info-window-name">{selected.name}</span>}
+            headerContent={
+              <span className="info-window-name">{selected.name}</span>
+            }
           >
             <div className="info-window">
               <p className="info-window-location">
@@ -187,7 +207,9 @@ function UnclustteredMarkers({
           onClick={() => onSelect(c)}
           zIndex={hoveredId === c.id ? 1000 : undefined}
         >
-          <div className={hoveredId === c.id ? 'marker-pin-active' : 'marker-pin'} />
+          <div
+            className={hoveredId === c.id ? 'marker-pin-active' : 'marker-pin'}
+          />
         </AdvancedMarker>
       ))}
     </>
@@ -200,7 +222,11 @@ function createPinElement(): HTMLElement {
   return div
 }
 
-function ZoomToLocation({ location }: { location: { lat: number; lng: number } }) {
+function ZoomToLocation({
+  location,
+}: {
+  location: { lat: number; lng: number }
+}) {
   const map = useMap()
   useEffect(() => {
     if (!map) return
