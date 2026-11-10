@@ -1,36 +1,16 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import {
-  X,
-  ChevronLeft,
-  ChevronRight,
-  AlertTriangle,
-  Copy,
-  Check,
-  Mail,
-  User,
-} from 'lucide-react'
+import { useCallback, useMemo, useState } from 'react'
+import { X, Copy, Check, Mail, ExternalLink, AlertTriangle } from 'lucide-react'
 import { Button } from '@/components/retroui/Button'
 import { useFavorites } from '@/components/FavoritesProvider'
 import type { Coach } from '@/lib/coaches'
-import {
-  SUPPORTED_VARS,
-  CONDITIONALS_HELP,
-  findUnknownVars,
-  mergeTemplate,
-  resolveAllVars,
-  buildContext,
-  detectHardcodedSchoolNames,
-  loadTemplate,
-  saveTemplate,
-  loadProfile,
-  saveProfile,
-  DEFAULT_TEMPLATE,
-  EMPTY_PROFILE,
-} from '@/lib/template'
-import type { SchoolData, PlayerProfile } from '@/lib/template'
 
-type CollegeEntry = SchoolData & {
+type CollegeEntry = {
   id: string
+  name: string
+  city: string
+  state: string
+  conference: string | null
+  team_website_url: string | null
   coaches: Coach[]
   coaches_updated: string | null
 }
@@ -47,23 +27,6 @@ export function EmailComposer({
     () => colleges.filter((c) => favorites.has(c.id)),
     [colleges, favorites],
   )
-
-  const [step, setStep] = useState<'profile' | 'template' | 'review' | 'data'>(
-    'profile',
-  )
-  const [template, setTemplate] = useState(loadTemplate)
-  const [profile, setProfile] = useState(loadProfile)
-  const [schoolIdx, setSchoolIdx] = useState(0)
-  const [coachIdx, setCoachIdx] = useState(0)
-  const [copied, setCopied] = useState(false)
-
-  useEffect(() => {
-    saveTemplate(template)
-  }, [template])
-
-  useEffect(() => {
-    saveProfile(profile)
-  }, [profile])
 
   if (favColleges.length === 0) {
     return (
@@ -85,93 +48,28 @@ export function EmailComposer({
     )
   }
 
-  if (step === 'profile') {
-    return (
-      <Overlay onClose={onClose}>
-        <ProfileStep
-          profile={profile}
-          setProfile={setProfile}
-          onNext={() => {
-            if (!template.trim()) setTemplate(DEFAULT_TEMPLATE)
-            setStep('template')
-          }}
-          onClose={onClose}
-        />
-      </Overlay>
-    )
-  }
-
-  if (step === 'template') {
-    return (
-      <Overlay onClose={onClose}>
-        <TemplateStep
-          template={template}
-          setTemplate={setTemplate}
-          profile={profile}
-          schoolCount={favColleges.length}
-          favColleges={favColleges}
-          onNext={() => {
-            setSchoolIdx(0)
-            setCoachIdx(0)
-            setCopied(false)
-            setStep('review')
-          }}
-          onSkip={() => {
-            setSchoolIdx(0)
-            setStep('data')
-          }}
-          onBack={() => setStep('profile')}
-          onClose={onClose}
-        />
-      </Overlay>
-    )
-  }
-
-  if (step === 'data') {
-    return (
-      <Overlay onClose={onClose}>
-        <DataStep
-          school={favColleges[schoolIdx]}
-          schoolIdx={schoolIdx}
-          schoolCount={favColleges.length}
-          profile={profile}
-          onPrev={() => setSchoolIdx((i) => Math.max(0, i - 1))}
-          onNext={() =>
-            setSchoolIdx((i) => Math.min(favColleges.length - 1, i + 1))
-          }
-          onBack={() => setStep('template')}
-          onClose={onClose}
-        />
-      </Overlay>
-    )
-  }
-
   return (
     <Overlay onClose={onClose}>
-      <ReviewStep
-        template={template}
-        school={favColleges[schoolIdx]}
-        schoolIdx={schoolIdx}
-        schoolCount={favColleges.length}
-        coachIdx={coachIdx}
-        setCoachIdx={setCoachIdx}
-        copied={copied}
-        setCopied={setCopied}
-        profile={profile}
-        allSchoolNames={favColleges.map((c) => c.name)}
-        onPrev={() => {
-          setCoachIdx(0)
-          setCopied(false)
-          setSchoolIdx((i) => Math.max(0, i - 1))
-        }}
-        onNext={() => {
-          setCoachIdx(0)
-          setCopied(false)
-          setSchoolIdx((i) => Math.min(favColleges.length - 1, i + 1))
-        }}
-        onBack={() => setStep('template')}
-        onClose={onClose}
-      />
+      <div className="flex flex-col h-full">
+        <div className="email-header">
+          <div>
+            <h2 className="text-lg font-bold font-head">Recruiting Contacts</h2>
+            <p className="text-xs text-muted-foreground">
+              {favColleges.length} school
+              {favColleges.length !== 1 ? 's' : ''} starred
+            </p>
+          </div>
+          <button onClick={onClose} className="email-close-btn">
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          {favColleges.map((school) => (
+            <SchoolCard key={school.id} school={school} />
+          ))}
+        </div>
+      </div>
     </Overlay>
   )
 }
@@ -195,735 +93,115 @@ function Overlay({
   )
 }
 
-const PROFILE_FIELDS: {
-  key: keyof PlayerProfile
-  label: string
-  placeholder: string
-  multiline?: boolean
-  section: string
-}[] = [
-  {
-    key: 'name',
-    label: 'Full Name',
-    placeholder: 'William Earl',
-    section: 'Player Info',
-  },
-  {
-    key: 'gradYear',
-    label: 'Grad Year',
-    placeholder: '2029',
-    section: 'Player Info',
-  },
-  {
-    key: 'position',
-    label: 'Position',
-    placeholder: 'Defenseman',
-    section: 'Player Info',
-  },
-  {
-    key: 'highSchool',
-    label: 'High School',
-    placeholder: 'Green Hope High School',
-    section: 'Player Info',
-  },
-  {
-    key: 'highSchoolState',
-    label: 'HS State',
-    placeholder: 'North Carolina',
-    section: 'Player Info',
-  },
-  {
-    key: 'clubTeam',
-    label: 'Club Team',
-    placeholder: 'Sweetlax Carolina',
-    section: 'Player Info',
-  },
-  {
-    key: 'clubCity',
-    label: 'Club City/State',
-    placeholder: 'Raleigh, NC',
-    section: 'Player Info',
-  },
-  {
-    key: 'gpa',
-    label: 'GPA',
-    placeholder: '3.8',
-    section: 'Academics',
-  },
-  {
-    key: 'heightWeight',
-    label: 'Height / Weight',
-    placeholder: "5'11 / 170 lbs",
-    section: 'Academics',
-  },
-  {
-    key: 'honors',
-    label: 'Honors/AP Courses',
-    placeholder: 'AP History, Honors Chemistry',
-    section: 'Academics',
-  },
-  {
-    key: 'sports',
-    label: 'Sports Played',
-    placeholder: 'Lacrosse, Football',
-    section: 'Academics',
-  },
-  {
-    key: 'accolades',
-    label: 'Awards / Accolades',
-    placeholder:
-      'All-Conference Team, Tournament All-Star, One Percent Showcase',
-    multiline: true,
-    section: 'Highlights',
-  },
-  {
-    key: 'highlightFilm',
-    label: 'Highlight Film URL',
-    placeholder: 'https://www.youtube.com/watch?v=...',
-    section: 'Highlights',
-  },
-  {
-    key: 'schedule',
-    label: 'Upcoming Schedule',
-    placeholder: 'Naptown Challenge - June 26-28, Annapolis MD',
-    multiline: true,
-    section: 'Highlights',
-  },
-  {
-    key: 'clubDirectorName',
-    label: 'Club Director Name',
-    placeholder: 'Ira Vanterpool',
-    section: 'Contacts',
-  },
-  {
-    key: 'clubDirectorEmail',
-    label: 'Club Director Email',
-    placeholder: 'ira@sweetlaxlacrosse.com',
-    section: 'Contacts',
-  },
-  {
-    key: 'clubDirectorPhone',
-    label: 'Club Director Phone',
-    placeholder: '336-639-9366',
-    section: 'Contacts',
-  },
-  {
-    key: 'hsCoachName',
-    label: 'HS Coach Name',
-    placeholder: 'Coach Smith',
-    section: 'Contacts',
-  },
-  {
-    key: 'hsCoachEmail',
-    label: 'HS Coach Email',
-    placeholder: 'coach@school.edu',
-    section: 'Contacts',
-  },
-  {
-    key: 'hsCoachPhone',
-    label: 'HS Coach Phone',
-    placeholder: '919-555-0123',
-    section: 'Contacts',
-  },
-]
-
-function ProfileStep({
-  profile,
-  setProfile,
-  onNext,
-  onClose,
-}: {
-  profile: PlayerProfile
-  setProfile: (p: PlayerProfile) => void
-  onNext: () => void
-  onClose: () => void
-}) {
-  const update = (key: keyof PlayerProfile, value: string) => {
-    setProfile({ ...profile, [key]: value })
-  }
-
-  const filled = Object.values(profile).filter((v) => v.trim()).length
-  const total = Object.keys(EMPTY_PROFILE).length
-
-  const sections: Record<string, typeof PROFILE_FIELDS> = {}
-  for (const f of PROFILE_FIELDS) {
-    const group = sections[f.section] ?? (sections[f.section] = [])
-    group.push(f)
-  }
-
-  return (
-    <div className="flex flex-col h-full">
-      <div className="email-header">
-        <div>
-          <h2 className="text-lg font-bold font-head flex items-center gap-2">
-            <User className="h-5 w-5" /> Player Profile
-          </h2>
-          <p className="text-xs text-muted-foreground">
-            Fill in once, used in every email. {filled}/{total} fields filled.
-          </p>
-        </div>
-        <button onClick={onClose} className="email-close-btn">
-          <X className="h-5 w-5" />
-        </button>
-      </div>
-
-      <div className="flex-1 overflow-y-auto p-4 space-y-5">
-        <p className="text-sm text-muted-foreground">
-          This info stays the same across all your recruiting emails. Fill in
-          what you have - empty fields are skipped in the email.
-        </p>
-
-        {Object.entries(sections).map(([sectionName, fields]) => (
-          <div key={sectionName}>
-            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
-              {sectionName}
-            </p>
-            <div className="email-profile-grid">
-              {fields.map((f) => (
-                <div key={f.key} className={f.multiline ? 'col-span-2' : ''}>
-                  <label className="text-xs font-medium text-muted-foreground block mb-1">
-                    {f.label}
-                  </label>
-                  {f.multiline ? (
-                    <textarea
-                      value={profile[f.key]}
-                      onChange={(e) => update(f.key, e.target.value)}
-                      placeholder={f.placeholder}
-                      className="email-textarea text-xs"
-                      rows={3}
-                    />
-                  ) : (
-                    <input
-                      type="text"
-                      value={profile[f.key]}
-                      onChange={(e) => update(f.key, e.target.value)}
-                      placeholder={f.placeholder}
-                      className="email-profile-input"
-                    />
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="email-footer">
-        <Button variant="outline" size="sm" onClick={onClose}>
-          Cancel
-        </Button>
-        <Button size="sm" onClick={onNext}>
-          Next: Email Template <ChevronRight className="h-4 w-4 ml-1" />
-        </Button>
-      </div>
-    </div>
-  )
-}
-
-function TemplateStep({
-  template,
-  setTemplate,
-  profile,
-  schoolCount,
-  favColleges,
-  onNext,
-  onSkip,
-  onBack,
-  onClose,
-}: {
-  template: string
-  setTemplate: (t: string) => void
-  profile: PlayerProfile
-  schoolCount: number
-  favColleges: CollegeEntry[]
-  onNext: () => void
-  onSkip: () => void
-  onBack: () => void
-  onClose: () => void
-}) {
-  const unknowns = findUnknownVars(template)
-
-  const withHC = favColleges.filter((s) =>
-    s.coaches.some((c) => /head coach/i.test(c.title) && c.name),
-  ).length
-  const withDC = favColleges.filter((s) =>
-    s.coaches.some((c) => /defen/i.test(c.title) && c.name),
-  ).length
-  const withRC = favColleges.filter((s) =>
-    s.coaches.some((c) => /recruit/i.test(c.title) && c.name),
-  ).length
-  const missingAny =
-    schoolCount - favColleges.filter((s) => s.coaches.length > 0).length
-
-  // Compute per-variable availability across all favorites
-  const availability = useMemo(() => {
-    const counts: Record<string, number> = {}
-    for (const v of SUPPORTED_VARS) {
-      const key = v.key.replace(/^\{\{|\}\}$/g, '')
-      if (v.group === 'player') {
-        // Player vars are the same for all schools - 0 or all
-        const ctx = buildContext(favColleges[0], null, [], profile)
-        counts[v.key] = ctx[key] ? schoolCount : 0
-      } else {
-        counts[v.key] = favColleges.filter((s) => {
-          const ctx = buildContext(s, s.coaches[0] ?? null, s.coaches, profile)
-          return !!ctx[key]
-        }).length
-      }
-    }
-    return counts
-  }, [favColleges, schoolCount, profile])
-
-  return (
-    <div className="flex flex-col h-full">
-      <div className="email-header">
-        <h2 className="text-lg font-bold font-head">Email Template</h2>
-        <button onClick={onClose} className="email-close-btn">
-          <X className="h-5 w-5" />
-        </button>
-      </div>
-
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        <p className="text-sm text-muted-foreground">
-          Write your template below. This will generate {schoolCount} email
-          {schoolCount !== 1 ? 's' : ''} from your favorites.
-        </p>
-
-        <div className="email-template-grid">
-          <div className="space-y-3">
-            <textarea
-              value={template}
-              onChange={(e) => setTemplate(e.target.value)}
-              placeholder={
-                "Dear {{COACH_FIRST}},\n\nMy name is ... and I'm interested in playing lacrosse at {{SCHOOL_NAME}}...\n\nUpcoming tournament schedule:\n- ..."
-              }
-              className="email-textarea"
-              rows={16}
-            />
-            {unknowns.length > 0 && (
-              <div className="email-warning">
-                <AlertTriangle className="h-4 w-4 shrink-0" />
-                <div>
-                  <p className="font-medium text-sm">Unknown variables</p>
-                  <p className="text-xs">{unknowns.join(', ')}</p>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="email-vars-panel">
-            <div className="flex items-baseline justify-between mb-2">
-              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                Variables
-              </p>
-              <p className="text-[10px] text-muted-foreground">Available</p>
-            </div>
-            {(['school', 'coach', 'player'] as const).map((group) => {
-              const groupVars = SUPPORTED_VARS.filter((v) => v.group === group)
-              return (
-                <div key={group} className="mb-3">
-                  <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide mb-1 mt-2">
-                    {group === 'school'
-                      ? 'School'
-                      : group === 'coach'
-                        ? 'Coach'
-                        : 'Player Profile'}
-                  </p>
-                  <div className="space-y-0.5">
-                    {groupVars.map((v) => {
-                      const count = availability[v.key] ?? 0
-                      const full = count === schoolCount
-                      return (
-                        <div key={v.key} className="email-var-row">
-                          <code className="email-var-code">{v.key}</code>
-                          <span className="text-muted-foreground text-[11px] flex-1">
-                            {v.desc}
-                          </span>
-                          <span
-                            className={`text-[11px] tabular-nums ${full ? 'text-muted-foreground' : 'text-amber-600 dark:text-amber-400 font-medium'}`}
-                          >
-                            {count}/{schoolCount}
-                          </span>
-                        </div>
-                      )
-                    })}
-                  </div>
-                </div>
-              )
-            })}
-            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mt-4 mb-2">
-              Conditionals
-            </p>
-            <div className="space-y-1">
-              {CONDITIONALS_HELP.map((c) => (
-                <div key={c.syntax} className="text-xs">
-                  <code className="email-var-code text-[10px]">{c.syntax}</code>
-                  <span className="text-muted-foreground text-[11px] ml-1">
-                    {c.desc}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="email-footer">
-        <Button variant="outline" size="sm" onClick={onBack}>
-          <ChevronLeft className="h-4 w-4 mr-1" /> Profile
-        </Button>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={onSkip}>
-            Skip - just show data <ChevronRight className="h-4 w-4 ml-1" />
-          </Button>
-          <Button size="sm" onClick={onNext} disabled={!template.trim()}>
-            Review emails <ChevronRight className="h-4 w-4 ml-1" />
-          </Button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function ReviewStep({
-  template,
-  school,
-  schoolIdx,
-  schoolCount,
-  coachIdx,
-  setCoachIdx,
-  copied,
-  setCopied,
-  profile,
-  allSchoolNames,
-  onPrev,
-  onNext,
-  onBack,
-  onClose,
-}: {
-  template: string
-  school: CollegeEntry
-  schoolIdx: number
-  schoolCount: number
-  coachIdx: number
-  setCoachIdx: (i: number) => void
-  copied: boolean
-  setCopied: (v: boolean) => void
-  profile: PlayerProfile
-  allSchoolNames: string[]
-  onPrev: () => void
-  onNext: () => void
-  onBack: () => void
-  onClose: () => void
-}) {
-  const coaches = school.coaches
-  const coach = coaches[coachIdx] ?? null
-  const merged = mergeTemplate(template, school, coach, coaches, profile)
-  const resolved = resolveAllVars(school, coach, coaches, profile)
-  const hardcoded = detectHardcodedSchoolNames(
-    merged,
-    school.name,
-    allSchoolNames,
-  )
-  const hasEmptyVars = /\{\{[A-Z_]+\}\}/.test(merged)
-  const staffUrl = school.team_website_url
-    ? school.team_website_url.replace(/\/$/, '') + '/coaches'
-    : null
-
-  useEffect(() => {
-    setCoachIdx(0)
-  }, [school.id])
-
-  const handleCopy = useCallback(async () => {
-    await navigator.clipboard.writeText(merged)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }, [merged, setCopied])
-
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  const mailtoHref = coach?.email
-    ? `mailto:${coach.email}?subject=${encodeURIComponent(`Interest in ${school.name} Lacrosse`)}&body=${encodeURIComponent(merged)}`
-    : undefined
-
-  return (
-    <div className="flex flex-col h-full">
-      <div className="email-header">
-        <div>
-          <h2 className="text-lg font-bold font-head">{school.name}</h2>
-          <p className="text-xs text-muted-foreground">
-            {schoolIdx + 1} of {schoolCount}
-            {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
-            {coach && coach.name && ` - ${coach.title}: ${coach.name}`}
-          </p>
-        </div>
-        <button onClick={onClose} className="email-close-btn">
-          <X className="h-5 w-5" />
-        </button>
-      </div>
-
-      <div className="flex-1 overflow-y-auto p-4 space-y-3">
-        {/* Coach selector - read only, just to pick which coach to merge */}
-        {coaches.length > 1 && (
-          <div className="flex items-center gap-2 flex-wrap">
-            {coaches.map((c, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  setCoachIdx(i)
-                  setCopied(false)
-                }}
-                className={`email-coach-pill ${i === coachIdx ? 'email-coach-pill-active' : ''}`}
-              >
-                {c.title}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Verification warning */}
-        <VerifyBanner school={school} staffUrl={staffUrl} />
-
-        {/* Warnings */}
-        {hardcoded.length > 0 && (
-          <div className="email-warning">
-            <AlertTriangle className="h-4 w-4 shrink-0" />
-            <p className="text-xs">
-              Possible hardcoded school reference:{' '}
-              <strong>{hardcoded.join(', ')}</strong>.
-            </p>
-          </div>
-        )}
-        {hasEmptyVars && (
-          <div className="email-warning">
-            <AlertTriangle className="h-4 w-4 shrink-0" />
-            <p className="text-xs">
-              Some variables couldn't be filled.
-              {coaches.length === 0
-                ? ' No coach data in the repo for this school.'
-                : ''}
-            </p>
-          </div>
-        )}
-
-        {/* Merged preview + variable status */}
-        <div className="email-review-grid">
-          <MergedPreview text={merged} />
-          <VarStatusPanel resolved={resolved} />
-        </div>
-      </div>
-
-      <div className="email-footer">
-        <Button variant="outline" size="sm" onClick={onBack}>
-          <ChevronLeft className="h-4 w-4 mr-1" /> Template
-        </Button>
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onPrev}
-            disabled={schoolIdx === 0}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <Button
-            variant={copied ? 'secondary' : 'default'}
-            size="sm"
-            onClick={handleCopy}
-          >
-            {copied ? (
-              <>
-                <Check className="h-4 w-4 mr-1" /> Copied
-              </>
-            ) : (
-              <>
-                <Copy className="h-4 w-4 mr-1" /> Copy
-              </>
-            )}
-          </Button>
-          {mailtoHref && (
-            <Button
-              variant="outline"
-              size="sm"
-              render={<a href={mailtoHref} />}
-            >
-              <Mail className="h-4 w-4" />
-            </Button>
-          )}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onNext}
-            disabled={schoolIdx === schoolCount - 1}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function DataStep({
-  school,
-  schoolIdx,
-  schoolCount,
-  profile,
-  onPrev,
-  onNext,
-  onBack,
-  onClose,
-}: {
-  school: CollegeEntry
-  schoolIdx: number
-  schoolCount: number
-  profile: PlayerProfile
-  onPrev: () => void
-  onNext: () => void
-  onBack: () => void
-  onClose: () => void
-}) {
-  const coaches = school.coaches
-  const resolved = resolveAllVars(school, coaches[0] ?? null, coaches, profile)
+function SchoolCard({ school }: { school: CollegeEntry }) {
   const staffUrl = school.team_website_url
     ? school.team_website_url.replace(/\/$/, '') + '/coaches'
     : null
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="email-header">
+    <div className="email-school-card">
+      <div className="flex items-start justify-between gap-2 mb-2">
         <div>
-          <h2 className="text-lg font-bold font-head">{school.name}</h2>
+          <h3 className="font-bold font-head text-sm">{school.name}</h3>
           <p className="text-xs text-muted-foreground">
-            {schoolIdx + 1} of {schoolCount} - Data view
+            {[school.conference, `${school.city}, ${school.state}`]
+              .filter(Boolean)
+              .join(' - ')}
           </p>
         </div>
-        <button onClick={onClose} className="email-close-btn">
-          <X className="h-5 w-5" />
-        </button>
-      </div>
-
-      <div className="flex-1 overflow-y-auto p-4 space-y-3">
-        <VerifyBanner school={school} staffUrl={staffUrl} />
-
-        {/* Full-width variable data */}
-        <VarStatusPanel resolved={resolved} />
-      </div>
-
-      <div className="email-footer">
-        <Button variant="outline" size="sm" onClick={onBack}>
-          <ChevronLeft className="h-4 w-4 mr-1" /> Template
-        </Button>
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onPrev}
-            disabled={schoolIdx === 0}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onNext}
-            disabled={schoolIdx === schoolCount - 1}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function VerifyBanner({
-  school,
-  staffUrl,
-}: {
-  school: CollegeEntry
-  staffUrl: string | null
-}) {
-  return (
-    <div className="email-verify-banner">
-      <AlertTriangle className="h-4 w-4 shrink-0" />
-      <p className="text-xs">
-        {school.coaches_updated ? (
-          <>
-            Last updated <strong>{school.coaches_updated}</strong>.{' '}
-          </>
-        ) : (
-          <>Coach data has not been verified. </>
-        )}
-        {staffUrl ? (
+        {staffUrl && (
           <a
             href={staffUrl}
             target="_blank"
             rel="noreferrer"
-            className="underline font-medium"
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 shrink-0"
           >
-            Verify before sending.
+            Staff page <ExternalLink className="h-3 w-3" />
           </a>
-        ) : (
-          <span>Verify on the school's athletics site before sending.</span>
         )}
-      </p>
-    </div>
-  )
-}
+      </div>
 
-function MergedPreview({ text }: { text: string }) {
-  const parts = text.split(/(\{\{[A-Z_]+\}\})/g)
-  return (
-    <div className="email-preview">
-      {parts.map((part, i) =>
-        /^\{\{[A-Z_]+\}\}$/.test(part) ? (
-          <span key={i} className="email-unfilled-var">
-            {part}
-          </span>
-        ) : (
-          <span key={i}>{part}</span>
-        ),
+      {school.coaches.length === 0 ? (
+        <p className="text-xs text-muted-foreground italic">
+          No coach data in the repo.{' '}
+          {staffUrl && (
+            <a
+              href={staffUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="underline"
+            >
+              Find on athletics site.
+            </a>
+          )}
+        </p>
+      ) : (
+        <div className="space-y-1.5">
+          {school.coaches.map((coach, i) => (
+            <CoachRow key={i} coach={coach} schoolName={school.name} />
+          ))}
+        </div>
+      )}
+
+      {school.coaches_updated && (
+        <p className="text-[10px] text-muted-foreground mt-2 flex items-center gap-1">
+          <AlertTriangle className="h-3 w-3" />
+          Data from {school.coaches_updated} - verify before sending
+        </p>
       )}
     </div>
   )
 }
 
-function VarStatusPanel({
-  resolved,
-}: {
-  resolved: Record<string, string | null>
-}) {
+function CoachRow({ coach, schoolName }: { coach: Coach; schoolName: string }) {
+  const [copied, setCopied] = useState(false)
+
+  const handleCopyEmail = useCallback(async () => {
+    if (!coach.email) return
+    await navigator.clipboard.writeText(coach.email)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }, [coach.email])
+
+  const mailtoHref = coach.email
+    ? `mailto:${coach.email}?subject=${encodeURIComponent(`Interest in ${schoolName} Lacrosse`)}`
+    : undefined
+
   return (
-    <div className="email-vars-panel">
-      <div className="flex items-baseline justify-between mb-2">
-        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-          Variables
-        </p>
-        <p className="text-[10px] text-muted-foreground">Value</p>
+    <div className="email-coach-row">
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-medium truncate">{coach.name}</p>
+        <p className="text-xs text-muted-foreground">{coach.title}</p>
       </div>
-      <div className="space-y-0.5">
-        {SUPPORTED_VARS.map((v) => {
-          const val = resolved[v.key]
-          const available = val !== null && val !== ''
-          return (
-            <div key={v.key} className="email-var-row">
-              <code
-                className={`email-var-code ${!available ? 'opacity-40' : ''}`}
-              >
-                {v.key}
-              </code>
-              <span className="text-muted-foreground text-[11px] flex-1">
-                {v.desc}
-              </span>
-              <span
-                className={`text-[11px] ${available ? 'text-foreground font-medium' : 'text-muted-foreground italic'}`}
-              >
-                {available ? val : 'missing'}
-              </span>
-            </div>
-          )
-        })}
-      </div>
+      {coach.email ? (
+        <div className="flex items-center gap-1 shrink-0">
+          <code className="text-xs text-muted-foreground hidden sm:inline">
+            {coach.email}
+          </code>
+          <button
+            onClick={handleCopyEmail}
+            className="email-action-btn"
+            title="Copy email"
+          >
+            {copied ? (
+              <Check className="h-3.5 w-3.5 text-green-600" />
+            ) : (
+              <Copy className="h-3.5 w-3.5" />
+            )}
+          </button>
+          {mailtoHref && (
+            <a
+              href={mailtoHref}
+              className="email-action-btn"
+              title="Send email"
+            >
+              <Mail className="h-3.5 w-3.5" />
+            </a>
+          )}
+        </div>
+      ) : (
+        <span className="text-xs text-muted-foreground italic">no email</span>
+      )}
     </div>
   )
 }
