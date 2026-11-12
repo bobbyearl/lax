@@ -12,6 +12,8 @@ type FavoritesContextType = {
   isFavorite: (id: string) => boolean
   clear: () => void
   count: number
+  exportFavorites: () => Promise<string>
+  importFavorites: (json: string) => number
 }
 
 const FavoritesContext = createContext<FavoritesContextType>({
@@ -20,6 +22,8 @@ const FavoritesContext = createContext<FavoritesContextType>({
   isFavorite: () => false,
   clear: () => {},
   count: 0,
+  exportFavorites: async () => '[]',
+  importFavorites: () => 0,
 })
 
 export function useFavorites() {
@@ -62,9 +66,35 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
 
   const clear = useCallback(() => setFavorites(new Set()), [])
 
+  const exportFavorites = useCallback(async () => {
+    const json = JSON.stringify([...favorites])
+    await navigator.clipboard.writeText(json)
+    return json
+  }, [favorites])
+
+  const importFavorites = useCallback((json: string) => {
+    try {
+      const ids = JSON.parse(json)
+      if (!Array.isArray(ids)) return 0
+      const valid = ids.filter((id): id is string => typeof id === 'string')
+      setFavorites(new Set(valid))
+      return valid.length
+    } catch {
+      return 0
+    }
+  }, [])
+
   return (
     <FavoritesContext.Provider
-      value={{ favorites, toggle, isFavorite, clear, count: favorites.size }}
+      value={{
+        favorites,
+        toggle,
+        isFavorite,
+        clear,
+        count: favorites.size,
+        exportFavorites,
+        importFavorites,
+      }}
     >
       {children}
     </FavoritesContext.Provider>

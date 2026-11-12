@@ -13,6 +13,8 @@ import {
   Star,
   Trash2,
   Mail,
+  Download,
+  Upload,
 } from 'lucide-react'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { useFavorites } from '@/components/FavoritesProvider'
@@ -497,20 +499,65 @@ function ListView({
   hoveredId: string | null
   onHover: (id: string | null) => void
 }) {
-  const { toggle, isFavorite, count, clear } = useFavorites()
+  const { toggle, isFavorite, count, clear, exportFavorites, importFavorites } =
+    useFavorites()
   const showFavorites = Route.useSearch().favorites === '1'
 
   return (
     <Card className="w-full overflow-hidden">
-      {showFavorites && count > 0 && (
+      {showFavorites && (
         <div className="flex items-center justify-between px-2 sm:px-4 py-2 border-b-2 bg-accent">
           <span className="text-xs text-muted-foreground">
             {count} favorite{count !== 1 ? 's' : ''}
           </span>
-          <Button variant="link" size="sm" onClick={clear} className="text-xs">
-            <Trash2 className="h-3 w-3 mr-1" />
-            Clear all
-          </Button>
+          <div className="flex items-center gap-2">
+            {count > 0 && (
+              <Button
+                variant="link"
+                size="sm"
+                className="text-xs"
+                onClick={async () => {
+                  await exportFavorites()
+                  alert(`${count} favorites copied to clipboard`)
+                }}
+              >
+                <Download className="h-3 w-3 mr-1" />
+                Export
+              </Button>
+            )}
+            <Button
+              variant="link"
+              size="sm"
+              className="text-xs"
+              onClick={async () => {
+                try {
+                  const text = await navigator.clipboard.readText()
+                  const n = importFavorites(text)
+                  if (n > 0) alert(`Imported ${n} favorites`)
+                  else
+                    alert(
+                      'No favorites found in clipboard. Export from another device first.',
+                    )
+                } catch {
+                  alert('Could not read clipboard.')
+                }
+              }}
+            >
+              <Upload className="h-3 w-3 mr-1" />
+              Import
+            </Button>
+            {count > 0 && (
+              <Button
+                variant="link"
+                size="sm"
+                onClick={clear}
+                className="text-xs"
+              >
+                <Trash2 className="h-3 w-3 mr-1" />
+                Clear all
+              </Button>
+            )}
+          </div>
         </div>
       )}
       <div className="overflow-x-auto">
