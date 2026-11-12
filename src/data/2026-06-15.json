@@ -2956,15 +2956,25 @@
         {
           "name": "Ryan Polley",
           "title": "Head Coach",
-          "email": "polley@bu.edu"
+          "email": "rpolley@bu.edu"
         },
         {
-          "name": "Mike Silipo",
-          "title": "Associate Head Coach / Defensive Coordinator",
-          "email": "msilipo@bu.edu"
+          "name": "Jack Rowlett",
+          "title": "Assistant Coach / Defensive Coordinator",
+          "email": "jackrowl@bu.edu"
+        },
+        {
+          "name": "Mike Morgan",
+          "title": "Assistant Coach",
+          "email": "mikemorg@bu.edu"
+        },
+        {
+          "name": "Tim Roberts",
+          "title": "Assistant Coach",
+          "email": "trobert4@bu.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-12"
     },
     {
       "id": "cdd8a039-fcdc-4199-981d-13c4e0bb851e",
