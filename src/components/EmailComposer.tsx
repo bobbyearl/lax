@@ -1,8 +1,10 @@
 import { useCallback, useMemo, useState } from 'react'
-import { X, Copy, Check, Mail, ExternalLink, AlertTriangle } from 'lucide-react'
+import { X, Copy, Check, ExternalLink, AlertTriangle } from 'lucide-react'
 import { Button } from '@/components/retroui/Button'
 import { useFavorites } from '@/components/FavoritesProvider'
 import type { Coach } from '@/lib/coaches'
+
+import { splitName } from '@/lib/coaches'
 
 type CollegeEntry = {
   id: string
@@ -98,6 +100,14 @@ function SchoolCard({ school }: { school: CollegeEntry }) {
     ? school.team_website_url.replace(/\/$/, '') + '/coaches'
     : null
 
+  // Build the three copyable values
+  const emails = school.coaches
+    .map((c) => c.email)
+    .filter(Boolean)
+    .join('; ')
+
+  const greeting = buildGreeting(school.coaches)
+
   return (
     <div className="email-school-card">
       <div className="flex items-start justify-between gap-2 mb-2">
@@ -136,10 +146,10 @@ function SchoolCard({ school }: { school: CollegeEntry }) {
           )}
         </p>
       ) : (
-        <div className="space-y-1.5">
-          {school.coaches.map((coach, i) => (
-            <CoachRow key={i} coach={coach} schoolName={school.name} />
-          ))}
+        <div className="space-y-1">
+          <CopyRow label="Emails" value={emails} />
+          <CopyRow label="Greeting" value={greeting} />
+          <CopyRow label="School" value={school.name} />
         </div>
       )}
 
@@ -153,55 +163,47 @@ function SchoolCard({ school }: { school: CollegeEntry }) {
   )
 }
 
-function CoachRow({ coach, schoolName }: { coach: Coach; schoolName: string }) {
+function buildGreeting(coaches: Coach[]): string {
+  const names = coaches
+    .map((c) => {
+      const last = splitName(c.name).last
+      return last ? `Coach ${last}` : null
+    })
+    .filter(Boolean)
+
+  if (names.length === 0) return ''
+  if (names.length === 1) return `Dear ${names[0]},`
+  if (names.length === 2) return `Dear ${names[0]} and ${names[1]},`
+  return `Dear ${names.slice(0, -1).join(', ')}, and ${names[names.length - 1]},`
+}
+
+function CopyRow({ label, value }: { label: string; value: string }) {
   const [copied, setCopied] = useState(false)
 
-  const handleCopyEmail = useCallback(async () => {
-    if (!coach.email) return
-    await navigator.clipboard.writeText(coach.email)
+  const handleCopy = useCallback(async () => {
+    if (!value) return
+    await navigator.clipboard.writeText(value)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
-  }, [coach.email])
+  }, [value])
 
-  const mailtoHref = coach.email
-    ? `mailto:${coach.email}?subject=${encodeURIComponent(`Interest in ${schoolName} Lacrosse`)}`
-    : undefined
+  if (!value) return null
 
   return (
-    <div className="email-coach-row">
-      <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium truncate">{coach.name}</p>
-        <p className="text-xs text-muted-foreground">{coach.title}</p>
-      </div>
-      {coach.email ? (
-        <div className="flex items-center gap-1 shrink-0">
-          <code className="text-xs text-muted-foreground hidden sm:inline">
-            {coach.email}
-          </code>
-          <button
-            onClick={handleCopyEmail}
-            className="email-action-btn"
-            title="Copy email"
-          >
-            {copied ? (
-              <Check className="h-3.5 w-3.5 text-green-600" />
-            ) : (
-              <Copy className="h-3.5 w-3.5" />
-            )}
-          </button>
-          {mailtoHref && (
-            <a
-              href={mailtoHref}
-              className="email-action-btn"
-              title="Send email"
-            >
-              <Mail className="h-3.5 w-3.5" />
-            </a>
-          )}
-        </div>
-      ) : (
-        <span className="text-xs text-muted-foreground italic">no email</span>
-      )}
+    <div className="email-copy-row">
+      <span className="email-copy-label">{label}</span>
+      <code className="email-copy-value">{value}</code>
+      <button
+        onClick={handleCopy}
+        className="email-action-btn"
+        title={`Copy ${label.toLowerCase()}`}
+      >
+        {copied ? (
+          <Check className="h-3.5 w-3.5 text-green-600" />
+        ) : (
+          <Copy className="h-3.5 w-3.5" />
+        )}
+      </button>
     </div>
   )
 }
