@@ -185,6 +185,18 @@
   @apply flex items-center gap-3 py-1.5 px-2 rounded bg-background/50;
 }
 
+.email-copy-row {
+  @apply flex items-center gap-2 py-1 px-2 rounded bg-background/50;
+}
+
+.email-copy-label {
+  @apply text-[11px] font-medium text-muted-foreground uppercase tracking-wide w-16 shrink-0;
+}
+
+.email-copy-value {
+  @apply text-xs flex-1 min-w-0 truncate;
+}
+
 .email-action-btn {
   @apply p-1.5 rounded hover:bg-accent cursor-pointer transition-colors text-muted-foreground hover:text-foreground;
 }
