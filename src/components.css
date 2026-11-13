@@ -166,7 +166,7 @@
 }
 
 .email-modal {
-  @apply bg-background border-2 border-border rounded shadow-lg w-[calc(100vw-2rem)] max-w-2xl h-[calc(100vh-2rem)] max-h-[700px] flex flex-col;
+  @apply bg-background border-2 border-border rounded shadow-lg w-[calc(100vw-2rem)] max-w-xl flex flex-col overflow-hidden;
 }
 
 .email-header {
@@ -177,8 +177,12 @@
   @apply p-1 rounded hover:bg-accent cursor-pointer transition-colors;
 }
 
+.email-footer {
+  @apply flex items-center justify-between p-4 border-t-2;
+}
+
 .email-school-card {
-  @apply p-3 rounded border-2 border-border bg-accent/20;
+  @apply p-3;
 }
 
 .email-coach-row {
@@ -195,6 +199,7 @@
 
 .email-copy-value {
   @apply text-xs flex-1 min-w-0 truncate;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .email-action-btn {
