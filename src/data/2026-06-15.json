@@ -24278,14 +24278,24 @@
       "ownership_type": 1,
       "coaches": [
         {
-          "name": "Tambroni",
+          "name": "Jeff Tambroni",
           "title": "Head Coach",
           "email": "jjt19@psu.edu"
         },
         {
-          "name": "Joe Gurenlian",
-          "title": "Assistant Coach / Defensive Coordinator",
-          "email": "jbg5421@psu.edu"
+          "name": "John Haus",
+          "title": "Associate Head Coach",
+          "email": "jgh32@psu.edu"
+        },
+        {
+          "name": "Joe Bucci",
+          "title": "Assistant Coach",
+          "email": "jpb6972@psu.edu"
+        },
+        {
+          "name": "Nick Cardile",
+          "title": "Assistant Coach",
+          "email": "nsc5139@psu.edu"
         }
       ],
       "coaches_updated": "2026-11-13"
