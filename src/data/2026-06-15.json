@@ -2967,14 +2967,9 @@
           "name": "Mike Morgan",
           "title": "Assistant Coach",
           "email": "mikemorg@bu.edu"
-        },
-        {
-          "name": "Tim Roberts",
-          "title": "Assistant Coach",
-          "email": "trobert4@bu.edu"
         }
       ],
-      "coaches_updated": "2026-11-12"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "cdd8a039-fcdc-4199-981d-13c4e0bb851e",
@@ -3469,7 +3464,7 @@
       "gender": "mens",
       "logo_url": "https://ranktech-cdn.s3.us-east-2.amazonaws.com/laxnumbers_prod/logos/0006cb_a.png",
       "website_url": "https://www.brown.edu/",
-      "team_website_url": "https://brownbears.com/sports/mens-lacrosse",
+      "team_website_url": "https://brownbears.com/sports/mlax",
       "commits_count": 0,
       "tuition_in_state": 68230,
       "tuition_out_of_state": 68230,
@@ -3479,17 +3474,22 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Mike Daly",
-          "title": "Head Coach",
-          "email": "michael_daly@brown.edu"
-        },
-        {
           "name": "John Cook",
           "title": "Defensive Coordinator",
           "email": "john_cook1@brown.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "logan_wisnauskas@brown.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "campbell_pozin@brown.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "0c05baa5-bea0-431b-aaa1-2f359bfcf816",
@@ -3577,7 +3577,7 @@
           "email": "cgroschan@bryant.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "3842efaa-e609-4676-b602-69377d983931",
@@ -3706,9 +3706,14 @@
           "name": "Matt Kerwick",
           "title": "Assistant Coach / Defensive Coordinator",
           "email": "mfk007@bucknell.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "jm107@bucknell.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "b35a5c67-5f18-40aa-bc0b-87d4b66f9cbf",
@@ -6227,17 +6232,22 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Matt Karweck",
+          "name": "Karweck",
           "title": "Head Coach",
-          "email": "mkarweck@colgate.edu"
+          "email": "ColgateLacrosse@Colgate.edu"
         },
         {
-          "name": "Chris Cooper",
-          "title": "Assistant Coach / Defensive Coordinator",
-          "email": "ccooper@colgate.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "jlattimore@colgate.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "ifarley@colgate.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "31384af1-23a8-45cc-8410-95bd1123cf09",
@@ -7257,17 +7267,22 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Connor Buczek",
+          "name": "Buczek",
           "title": "Head Coach",
-          "email": "cwb92@cornell.edu"
+          "email": "cfb67@cornell.edu"
         },
         {
-          "name": "Jordan Stevens",
-          "title": "Associate Head Coach / Defensive Coordinator",
-          "email": "jts293@cornell.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "pjc273@cornell.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "gb279@cornell.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "34083581-0c1c-4f43-bfd1-da2bbc724ae7",
@@ -7686,7 +7701,7 @@
           "email": "Ajax.Zappitello@dartmouth.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "bc37af29-cd88-464e-a27d-bb9eb5568707",
@@ -8751,9 +8766,14 @@
           "name": "Tucker Durkin",
           "title": "Associate Head Coach / Defensive Coordinator",
           "email": "td635@drexel.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "jt3479@drexel.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "b62f406d-82cd-421c-88da-c195bef0844d",
@@ -8874,17 +8894,22 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "John Danowski",
+          "name": "Danowski",
           "title": "Head Coach",
-          "email": "jdanowski@duaa.duke.edu"
+          "email": "estephenson@duaa.duke.edu"
         },
         {
-          "name": "Ron Caputo",
-          "title": "Assistant Coach / Defensive Coordinator",
-          "email": "rcaputo@duaa.duke.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "matthew.danowski@duke.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "ronald.caputo@duke.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "7279c782-ca97-4f2f-8006-1d8e1a60355f",
@@ -10165,14 +10190,9 @@
           "name": "Connor Samuelson",
           "title": "Assistant Coach / Defensive Coordinator",
           "email": "csamuelson@fairfield.edu"
-        },
-        {
-          "name": "David Metzbower",
-          "title": "Associate Head Coach / Recruiting Coordinator",
-          "email": "dmetzbower@fairfield.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "642e7a4f-f1de-47ff-9c2e-c21fd13ea19b",
@@ -11796,7 +11816,7 @@
           "email": "djs84@georgetown.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "17aa0eec-46e1-4acd-96df-ffc3e26a0b4e",
@@ -12831,7 +12851,7 @@
           "email": "nhutchinson@fas.harvard.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "b6e34a45-7d0a-499d-81af-b6a8636ceea7",
@@ -13096,17 +13116,17 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Jon Torpey",
+          "name": "Crawley",
           "title": "Head Coach",
-          "email": "jtorpey@highpoint.edu"
+          "email": "jcrawley@highpoint.edu"
         },
         {
-          "name": "Ken Broschart",
-          "title": "Associate Head Coach / Defensive Coordinator",
-          "email": "kbroscha@highpoint.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "aready@highpoint.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "10cd8ede-0cce-4a71-a2c5-6899b0ecabf8",
@@ -14628,11 +14648,6 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "John Galloway",
-          "title": "Head Coach",
-          "email": ""
-        },
-        {
           "name": "Chris Perzinski",
           "title": "Associate Head Coach / Recruiting Coordinator",
           "email": "cperzin@ju.edu"
@@ -14643,7 +14658,7 @@
           "email": "jgilesh@ju.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "552ff571-7d9e-4ac8-8e07-1273dca7bf77",
@@ -14860,17 +14875,22 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Peter Milliman",
+          "name": "Milliman",
           "title": "Head Coach",
-          "email": "pmilliman@jhu.edu"
+          "email": "hopkinslacrosse@jhu.edu"
         },
         {
-          "name": "Jamison Koesterer",
-          "title": "Associate Head Coach / Defensive Coordinator",
-          "email": "jkoesterer@jhu.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "jamison@jhu.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "jcohe117@jhu.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "104643ce-c5c5-4e41-a7bf-26d248b22189",
@@ -15759,17 +15779,22 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Patrick Myers",
+          "name": "Myers",
           "title": "Head Coach",
-          "email": "myersp@lafayette.edu"
+          "email": "myerspat@lafayette.edu"
         },
         {
-          "name": "Scott Bieda",
-          "title": "Associate Head Coach / Recruiting Coordinator",
-          "email": "biedas@lafayette.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "hallju@lafayette.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "goldsmse@lafayette.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "59027b21-37a3-470a-ab57-b6c297370ffa",
@@ -16410,12 +16435,17 @@
           "email": "wss211@lehigh.edu"
         },
         {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "mll323@lehigh.edu"
+        },
+        {
           "name": "Matt Francis",
           "title": "Associate Head Coach / Defensive Coordinator",
           "email": "maf622@lehigh.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "62f7cae9-ea5d-407a-b6dd-cd343743b160",
@@ -16829,12 +16859,12 @@
           "email": "jordan.levine@liu.edu"
         },
         {
-          "name": "Brendan Storrier",
-          "title": "Associate Head Coach",
-          "email": "brendan.storrier@liu.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "troy.reh@liu.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "4e593402-9005-4766-a5ba-acdb1a0a4fb3",
@@ -17234,7 +17264,7 @@
           "email": "jpward@loyola.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "9b5c921b-fa7b-4aff-9550-55ee3e70a1b6",
@@ -18067,17 +18097,17 @@
           "email": "david.scarcello@marist.edu"
         },
         {
+          "name": "Tyler Perrelle",
+          "title": "Assistant Coach / Recruiting Coordinator",
+          "email": "Tyler.Perrelle@marist.edu"
+        },
+        {
           "name": "JD Colarusso",
           "title": "Assistant Coach / Defensive Coordinator",
           "email": "joseph.colarusso@marist.edu"
-        },
-        {
-          "name": "Tyler Perrelle",
-          "title": "Assistant Coach / Recruiting Coordinator",
-          "email": "tyler.perrelle@marist.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "7e4e535c-3c2e-41a2-8c0c-48bcba446b43",
@@ -18203,12 +18233,12 @@
           "email": "jacob.richard@marquette.edu"
         },
         {
-          "name": "Bo Lori",
-          "title": "Assistant Coach / Defensive Coordinator",
-          "email": "bo.lori@marquette.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "w.roberts@marquette.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "8a5f64b5-94cd-4f28-a2b6-cc680ce3f343",
@@ -18737,17 +18767,17 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Chad Surman",
+          "name": "Chakey",
           "title": "Head Coach",
-          "email": "surman_cr@mercer.edu"
+          "email": "chakey_je@mercer.edu"
         },
         {
-          "name": "Michael O'Hanlon",
-          "title": "Assistant Coach / Defensive Coordinator",
-          "email": "ohanlon_mp@mercer.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "tocco_aa@mercer.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "4cc00107-7c2e-46df-a8dc-49ecd90295cc",
@@ -21315,7 +21345,7 @@
     },
     {
       "id": "b5d5a423-978e-423d-9bfe-ba96bbfffb97",
-      "name": "U.S. Naval Academy",
+      "name": "Navy",
       "city": "Annapolis",
       "state": "MD",
       "lat": 38.9848,
@@ -21339,7 +21369,7 @@
     },
     {
       "id": "274d5967-2f91-4931-8334-a9918ac4b090",
-      "name": "U.S. Naval Academy",
+      "name": "Navy",
       "city": "Annapolis",
       "state": "MD",
       "lat": 38.9848,
@@ -23389,15 +23419,25 @@
         {
           "name": "Nick Myers",
           "title": "Head Coach",
-          "email": "myers.444@osu.edu"
+          "email": "myers.877@osu.edu"
         },
         {
-          "name": "Travis Crane",
-          "title": "Associate Head Coach / Defensive Coordinator",
-          "email": "crane.214@osu.edu"
+          "name": "Kyle Gallagher",
+          "title": "Assistant Coach / Defensive Coordinator",
+          "email": ""
+        },
+        {
+          "name": "Ryan Danehy",
+          "title": "Assistant Coach / Offensive Coordinator",
+          "email": ""
+        },
+        {
+          "name": "Kendall Collins",
+          "title": "Assistant Coach",
+          "email": ""
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "2a8ca0cd-b901-4455-8cd4-75f9eb7d36cb",
@@ -24240,15 +24280,25 @@
         {
           "name": "Jeff Tambroni",
           "title": "Head Coach",
-          "email": "jxt29@psu.edu"
+          "email": "jjt19@psu.edu"
         },
         {
-          "name": "Joe Gurenlian",
-          "title": "Assistant Coach / Defensive Coordinator",
-          "email": "jbg5421@psu.edu"
+          "name": "John Haus",
+          "title": "Associate Head Coach",
+          "email": "jgh32@psu.edu"
+        },
+        {
+          "name": "Joe Bucci",
+          "title": "Assistant Coach",
+          "email": "jpb6972@psu.edu"
+        },
+        {
+          "name": "Nick Cardile",
+          "title": "Assistant Coach",
+          "email": "nsc5139@psu.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "e7d1d4f3-a052-402b-b4d5-0c43e7b75106",
@@ -24835,7 +24885,7 @@
           "email": "jjhirsch@princeton.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "08e860c8-84fd-4ef6-b5f2-fac1134dc060",
@@ -24892,9 +24942,14 @@
           "name": "Casey Brodersen",
           "title": "Associate Head Coach / Defensive Coordinator",
           "email": "cbroders@providence.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "ckenne15@providence.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "ab5d6e79-ee4c-4ab6-b528-df307d13e409",
@@ -26642,12 +26697,17 @@
           "email": "bbrecht@scarletknights.com"
         },
         {
-          "name": "Jimmy Mitchell",
-          "title": "Assistant Coach / Defensive Coordinator",
-          "email": "jmitchell@scarletknights.com"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "jryan@scarletknights.com"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "sbieda@scarletknights.com"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "0ad345f7-d13f-4ef8-9f6a-42f4030e8c5a",
@@ -26749,12 +26809,12 @@
           "email": "bastij@sacredheart.edu"
         },
         {
-          "name": "Tyler Lindley",
-          "title": "Assistant Coach / Defensive Coordinator",
-          "email": "lindleyt@sacredheart.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "doctorc@sacredheart.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "c07735eb-f3f9-4900-ab69-cb3a7a4db625",
@@ -26995,17 +27055,22 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Taylor Wray",
+          "name": "Scott Meehan",
           "title": "Head Coach",
-          "email": "twray@sju.edu"
+          "email": "smeehan@sju.edu"
         },
         {
-          "name": "Scott Meehan",
-          "title": "Associate Head Coach / Defensive Coordinator",
-          "email": "smeehan@sju.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "cgiunta@sju.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "jmcmahon2@sju.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "21295c8c-072d-496c-946b-1eb3a0dd7fcf",
@@ -29601,12 +29666,17 @@
           "email": "turrij@stjohns.edu"
         },
         {
-          "name": "Kyle Mummau",
-          "title": "Assistant Coach / Defensive Coordinator",
-          "email": "mummauk@stjohns.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "turrik@stjohns.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "drozjocd@stjohns.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "02bc293b-c411-4a14-a62d-60a962c95e3a",
@@ -30308,17 +30378,17 @@
           "email": "anthony.gilardi@stonybrook.edu"
         },
         {
-          "name": "Quintin Germain",
-          "title": "Assistant Coach / Defensive Coordinator",
-          "email": "quintin.germain@stonybrook.edu"
-        },
-        {
           "name": "Mike Chanenchuk",
           "title": "Associate Head Coach / Recruiting Coordinator",
           "email": "michael.chanenchuk@stonybrook.edu"
+        },
+        {
+          "name": "Quintin Germain",
+          "title": "Assistant Coach / Defensive Coordinator",
+          "email": "quintin.germain@stonybrook.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "c52b492d-8786-4828-a55d-573c176136cc",
@@ -31327,17 +31397,22 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Gary Gait",
+          "name": "Gait",
           "title": "Head Coach",
-          "email": "glgait@syr.edu"
+          "email": "gcgait@syr.edu"
         },
         {
-          "name": "John Lade",
-          "title": "Assistant Coach / Defensive Coordinator",
-          "email": "jlade@syr.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "pmmarch@syr.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "dcbezek@syr.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "0e5259d3-1241-4ca1-8988-23e414b2a3f7",
@@ -32306,14 +32381,9 @@
           "name": "Steve Grossi",
           "title": "Assistant Coach / Defensive Coordinator",
           "email": "sgrossi@towson.edu"
-        },
-        {
-          "name": "Matt Musci",
-          "title": "Assistant Coach / Recruiting Coordinator",
-          "email": "mmusci@towson.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "c81d63ac-dda8-4ada-8dd0-68ad9d2d8fea",
@@ -32953,11 +33023,11 @@
           "email": "colin.mcguire.ctr@afacademy.af.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "f91872ef-fb69-4a5d-b4e7-aa94376b7848",
-      "name": "U.S. Military Academy",
+      "name": "Army",
       "city": "West Point",
       "state": "NY",
       "lat": 41.3926,
@@ -32979,20 +33049,30 @@
       "coaches": [
         {
           "name": "Joe Alberici",
-          "title": "Head Coach",
+          "title": "Jack Emmer Head Men's Lacrosse Coach",
           "email": "joe.alberici@westpoint.edu"
         },
         {
           "name": "Kyle Georgalas",
-          "title": "Associate Head Coach / Defensive Coordinator",
+          "title": "Associate Head Men's Lacrosse Coach",
           "email": "kyle.georgalas@westpoint.edu"
+        },
+        {
+          "name": "Rick Lewis",
+          "title": "Assistant Men's Lacrosse Coach",
+          "email": "Richard.lewis@westpoint.edu"
+        },
+        {
+          "name": "Ian Moore",
+          "title": "Assistant Men's Lacrosse Coach",
+          "email": "ian.moore@westpoint.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "21d55409-92fd-4d85-8e30-8f063218a894",
-      "name": "U.S. Naval Academy",
+      "name": "Navy",
       "city": "Annapolis",
       "state": "MD",
       "lat": 38.9786,
@@ -33013,11 +33093,6 @@
       "ownership_type": 1,
       "coaches": [
         {
-          "name": "Joe Amplo",
-          "title": "Head Coach",
-          "email": ""
-        },
-        {
           "name": "John Orsen",
           "title": "Associate Head Coach / Defensive Coordinator",
           "email": "orsen@usna.edu"
@@ -33028,7 +33103,7 @@
           "email": "jbmiller@usna.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "def2bf65-6e3d-44af-8f80-f98066f39531",
@@ -33944,7 +34019,7 @@
     },
     {
       "id": "40d95cc3-6098-4ebb-b95e-026722d2fe26",
-      "name": "U.S. Naval Academy",
+      "name": "Navy",
       "city": "Annapolis",
       "state": "MD",
       "lat": 38.9819,
@@ -33999,12 +34074,12 @@
           "email": "mthomson@albany.edu"
         },
         {
-          "name": "Liam Guiton",
-          "title": "Assistant Coach / Defense",
-          "email": "lguiton@albany.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "jmmaloney@albany.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "5232720a-344c-4f33-a6b5-c766472583e2",
@@ -34293,17 +34368,22 @@
       "ownership_type": 1,
       "coaches": [
         {
-          "name": "Ben DeLuca",
+          "name": "DeLuca",
           "title": "Head Coach",
-          "email": "deluca@udel.edu"
+          "email": "menslacrosse@udel.edu"
         },
         {
-          "name": "Matt Abbott",
-          "title": "Associate Head Coach / Defensive Coordinator",
-          "email": "mabbott@udel.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "twilkes@udel.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "mbieda@udel.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "70a9557c-e747-4450-b184-a47661ae8895",
@@ -34352,17 +34432,22 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Matt Brown",
+          "name": "Brown",
           "title": "Head Coach",
-          "email": "matthew.brown@du.edu"
+          "email": "mtbrown@du.edu"
         },
         {
           "name": "John Gallant",
           "title": "Assistant Coach / Defensive Coordinator",
           "email": "john.gallant@du.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "Jack.Tortolani@du.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "c2a7ca4c-fcfc-472b-a957-2b6f9a7c15c4",
@@ -34897,7 +34982,7 @@
     },
     {
       "id": "4e4cf897-03e7-4d0a-bbab-cfb34cc8c1ae",
-      "name": "University of Maryland, College Park",
+      "name": "University of Maryland",
       "city": "College Park",
       "state": "MD",
       "lat": 38.9869,
@@ -34923,16 +35008,16 @@
           "email": "jtillman@umd.edu"
         },
         {
-          "name": "Jesse Bernhardt",
-          "title": "Associate Head Coach / Defensive Coordinator",
-          "email": "jbernhar@umd.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "jbernha3@umd.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "48c03642-a62e-4165-93ed-97b64c104399",
-      "name": "University of Maryland, College Park",
+      "name": "University of Maryland",
       "city": "College Park",
       "state": "MD",
       "lat": 38.9869,
@@ -35121,15 +35206,20 @@
         {
           "name": "Kevin Conry",
           "title": "Head Coach",
-          "email": "kconry@umich.edu"
+          "email": ""
         },
         {
           "name": "Jim Rogalski",
-          "title": "Associate Head Coach / Defensive Coordinator",
-          "email": "rogalski@umich.edu"
+          "title": "Associate Head Coach",
+          "email": ""
+        },
+        {
+          "name": "Will Corrigan",
+          "title": "Assistant Coach / Offensive Coordinator",
+          "email": "wcorriga@umich.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "5bd2dee9-5955-4dde-bbd9-d79b844da492",
@@ -35517,7 +35607,7 @@
     },
     {
       "id": "62355718-0f26-4b0d-8353-3c1e10481041",
-      "name": "University of North Carolina, Chapel Hill",
+      "name": "University of North Carolina",
       "city": "Chapel Hill",
       "state": "NC",
       "lat": 35.9049,
@@ -35538,22 +35628,17 @@
       "ownership_type": 1,
       "coaches": [
         {
-          "name": "Joe Breschi",
+          "name": "Breschi",
           "title": "Head Coach",
-          "email": "jbreschi@unc.edu"
+          "email": "breschi@uncaa.unc.edu"
         },
         {
-          "name": "Dave Pietramala",
-          "title": "Defensive Coordinator",
-          "email": "coachpetro@unc.edu"
-        },
-        {
-          "name": "Will Manning",
-          "title": "Assistant Coach / Recruiting Coordinator",
-          "email": "wmanning@unc.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "dpietra@unc.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "da63a5cd-5412-4b1c-9726-2032932b1297",
@@ -35592,7 +35677,7 @@
       "gender": "mens",
       "logo_url": "https://ranktech-cdn.s3.us-east-2.amazonaws.com/laxnumbers_prod/logos/00028f_a.png",
       "website_url": "https://www.nd.edu/",
-      "team_website_url": "https://fightingirish.com/sports/mlax/",
+      "team_website_url": "https://fightingirish.com/sports/mlax",
       "commits_count": 0,
       "tuition_in_state": 62693,
       "tuition_out_of_state": 62693,
@@ -35602,17 +35687,22 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Kevin Corrigan",
+          "name": "Corrigan",
           "title": "Head Coach",
-          "email": "kcorriga@nd.edu"
+          "email": "Kevin.M.Corrigan.1@nd.edu"
         },
         {
           "name": "Ryan Wellner",
           "title": "Associate Head Coach / Defensive Coordinator",
           "email": "rwellner@nd.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "cwojcik2@nd.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "dbe533c1-9b5e-4a4f-8dbb-f353b68a0a04",
@@ -35685,9 +35775,9 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Mike Murphy",
+          "name": "Wray",
           "title": "Head Coach",
-          "email": "murphymj@upenn.edu"
+          "email": "twray@upenn.edu"
         },
         {
           "name": "Casey Ikeda",
@@ -35695,7 +35785,7 @@
           "email": "caseymi@upenn.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "e3fabb6e-68a1-4e3d-8c81-b9a4024e7724",
@@ -35850,7 +35940,7 @@
           "email": "prichards@richmond.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "f04d4160-5acc-4e94-8223-b229125f930c",
@@ -36298,7 +36388,7 @@
           "email": "tmcdermott@huntsman.utah.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "c71a8baf-6db6-48c6-b4e1-7c371f0e07cf",
@@ -36323,17 +36413,17 @@
       "ownership_type": 1,
       "coaches": [
         {
-          "name": "Chris Feifs",
+          "name": "Kelleher",
           "title": "Head Coach",
-          "email": "Chris.Feifs@uvm.edu"
+          "email": "devin.samuelson@uvm.edu"
         },
         {
-          "name": "Jake Bernhardt",
-          "title": "Associate Head Coach / Defensive Coordinator",
-          "email": "jake.bernhardt@uvm.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "Troy.Haefele@uvm.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "561a0452-11fe-467d-a7b7-177597db6fb6",
@@ -36382,22 +36472,17 @@
       "ownership_type": 1,
       "coaches": [
         {
-          "name": "Lars Tiffany",
-          "title": "Head Coach",
-          "email": "ltiffany@virginia.edu"
-        },
-        {
-          "name": "Kip Turner",
-          "title": "Associate Head Coach / Defensive Coordinator",
-          "email": "kturner@virginia.edu"
-        },
-        {
           "name": "Kevin Cassese",
-          "title": "Associate Head Coach / Offensive Coordinator",
+          "title": "Head Coach",
           "email": "kcassese@virginia.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "cfeifs@virginia.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "e056d954-e1b2-4664-9686-8004280190bd",
@@ -37670,14 +37755,9 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Michael Corrado",
+          "name": "Corrado",
           "title": "Head Coach",
-          "email": "michael.corrado@villanova.edu"
-        },
-        {
-          "name": "Simon Flannery",
-          "title": "Associate Head Coach / Defensive Coordinator",
-          "email": "simon.flannery@villanova.edu"
+          "email": "vumenslacrosse@villanova.edu"
         },
         {
           "name": "Chris Miller",
@@ -37685,7 +37765,7 @@
           "email": "christopher.miller@villanova.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "3eef087c-2251-44ab-834d-e1a4b15c4d4b",
@@ -37806,17 +37886,22 @@
       "ownership_type": 1,
       "coaches": [
         {
-          "name": "James Purpura",
+          "name": "Daly",
           "title": "Head Coach",
-          "email": "purpurajj@vmi.edu"
+          "email": "dalymp@vmi.edu"
         },
         {
-          "name": "Jack Wilson",
-          "title": "Assistant Coach / Defensive Coordinator",
-          "email": "wilsonjr@vmi.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "dolanp@vmi.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "leedsat@vmi.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "9e3936c4-b9a0-44bc-99d1-5fcb050a8240",
@@ -38081,17 +38166,22 @@
       "ownership_type": 2,
       "coaches": [
         {
-          "name": "Bill McCreary",
+          "name": "Fox",
           "title": "Head Coach",
-          "email": "william.mccreary@wagner.edu"
+          "email": "william.fox@wagner.edu"
         },
         {
-          "name": "Ryan West",
-          "title": "Assistant Coach / Defensive Coordinator",
-          "email": "ryan.west@wagner.edu"
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "joseph.zukauskas@wagner.edu"
+        },
+        {
+          "name": "",
+          "title": "Assistant Coach",
+          "email": "tyler.foss@wagner.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "5b23eaae-085c-4c2e-b3f0-aacde68c920e",
@@ -41054,7 +41144,7 @@
           "email": "noah.fossner@yale.edu"
         }
       ],
-      "coaches_updated": "2026-11-08"
+      "coaches_updated": "2026-11-13"
     },
     {
       "id": "b9b70529-b1a7-40ca-acaa-eff421052e67",
@@ -41198,8 +41288,14 @@
       "graduation_rate": 0.8276,
       "ownership_type": 2,
       "first_season": 2028,
-      "coaches": [],
-      "coaches_updated": null
+      "coaches": [
+        {
+          "name": "Jim Mitchell",
+          "title": "Head Coach",
+          "email": "mlax@smu.edu"
+        }
+      ],
+      "coaches_updated": "2026-11-13"
     }
   ],
   "meta": {

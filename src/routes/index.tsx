@@ -252,17 +252,19 @@ function Home() {
   }, [options, league, division, gender, state, conference, setFilter])
 
   const filtered = useMemo(() => {
-    return colleges.filter((c) => {
-      if (league && c.league !== league) return false
-      if (division && c.division !== division) return false
-      if (gender && c.gender !== gender) return false
-      if (state && c.state !== state) return false
-      if (conference && c.conference !== conference) return false
-      if (search && !c.name.toLowerCase().includes(search.toLowerCase()))
-        return false
-      if (showFavorites && !favorites.has(c.id)) return false
-      return true
-    })
+    return colleges
+      .filter((c) => {
+        if (league && c.league !== league) return false
+        if (division && c.division !== division) return false
+        if (gender && c.gender !== gender) return false
+        if (state && c.state !== state) return false
+        if (conference && c.conference !== conference) return false
+        if (search && !c.name.toLowerCase().includes(search.toLowerCase()))
+          return false
+        if (showFavorites && !favorites.has(c.id)) return false
+        return true
+      })
+      .sort((a, b) => a.name.localeCompare(b.name))
   }, [
     colleges,
     league,

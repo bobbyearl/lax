@@ -1,5 +1,13 @@
 import { useCallback, useMemo, useState } from 'react'
-import { X, Copy, Check, ExternalLink, AlertTriangle } from 'lucide-react'
+import {
+  X,
+  Copy,
+  Check,
+  ExternalLink,
+  AlertTriangle,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react'
 import { Button } from '@/components/retroui/Button'
 import { useFavorites } from '@/components/FavoritesProvider'
 import type { Coach } from '@/lib/coaches'
@@ -26,9 +34,15 @@ export function EmailComposer({
 }) {
   const { favorites } = useFavorites()
   const favColleges = useMemo(
-    () => colleges.filter((c) => favorites.has(c.id)),
+    () =>
+      colleges
+        .filter((c) => favorites.has(c.id))
+        .sort((a, b) => a.name.localeCompare(b.name)),
     [colleges, favorites],
   )
+
+  const [view, setView] = useState<'single' | 'all'>('single')
+  const [idx, setIdx] = useState(0)
 
   if (favColleges.length === 0) {
     return (
@@ -50,6 +64,8 @@ export function EmailComposer({
     )
   }
 
+  const school = favColleges[idx]
+
   return (
     <Overlay onClose={onClose}>
       <div className="flex flex-col h-full">
@@ -57,20 +73,62 @@ export function EmailComposer({
           <div>
             <h2 className="text-lg font-bold font-head">Recruiting Contacts</h2>
             <p className="text-xs text-muted-foreground">
-              {favColleges.length} school
-              {favColleges.length !== 1 ? 's' : ''} starred
+              {view === 'single'
+                ? `${idx + 1} of ${favColleges.length}`
+                : `${favColleges.length} schools`}
             </p>
           </div>
-          <button onClick={onClose} className="email-close-btn">
-            <X className="h-5 w-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setView(view === 'single' ? 'all' : 'single')}
+              className="text-xs"
+            >
+              {view === 'single' ? 'Show all' : 'One at a time'}
+            </Button>
+            <button onClick={onClose} className="email-close-btn">
+              <X className="h-5 w-5" />
+            </button>
+          </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-4 space-y-3">
-          {favColleges.map((school) => (
-            <SchoolCard key={school.id} school={school} />
-          ))}
-        </div>
+        {view === 'all' ? (
+          <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            {favColleges.map((s) => (
+              <SchoolCard key={s.id} school={s} />
+            ))}
+          </div>
+        ) : (
+          <>
+            <div className="flex-1 overflow-y-auto p-4">
+              <SchoolCard school={school} />
+            </div>
+            <div className="email-footer">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIdx((i) => Math.max(0, i - 1))}
+                disabled={idx === 0}
+              >
+                <ChevronLeft className="h-4 w-4 mr-1" /> Prev
+              </Button>
+              <span className="text-xs text-muted-foreground">
+                {school.name}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  setIdx((i) => Math.min(favColleges.length - 1, i + 1))
+                }
+                disabled={idx === favColleges.length - 1}
+              >
+                Next <ChevronRight className="h-4 w-4 ml-1" />
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </Overlay>
   )
@@ -164,17 +222,23 @@ function SchoolCard({ school }: { school: CollegeEntry }) {
 }
 
 function buildGreeting(coaches: Coach[]): string {
-  const names = coaches
+  const named = coaches
     .map((c) => {
       const last = splitName(c.name).last
       return last ? `Coach ${last}` : null
     })
-    .filter(Boolean)
+    .filter(Boolean) as string[]
 
-  if (names.length === 0) return ''
-  if (names.length === 1) return `Dear ${names[0]},`
-  if (names.length === 2) return `Dear ${names[0]} and ${names[1]},`
-  return `Dear ${names.slice(0, -1).join(', ')}, and ${names[names.length - 1]},`
+  const unnamed = coaches.length - named.length
+  const hasStaff = unnamed > 0 || named.length > 2
+
+  if (named.length === 0 && coaches.length > 0) return 'Dear Coaching Staff'
+  if (named.length === 0) return ''
+  if (named.length === 1 && hasStaff) return `Dear ${named[0]} and Staff`
+  if (named.length === 1) return `Dear ${named[0]}`
+  if (named.length === 2 && !hasStaff) return `Dear ${named[0]} and ${named[1]}`
+  // 2+ named with extra staff, or 3+ named
+  return `Dear ${named[0]} and Staff`
 }
 
 function CopyRow({ label, value }: { label: string; value: string }) {
@@ -192,7 +256,7 @@ function CopyRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="email-copy-row">
       <span className="email-copy-label">{label}</span>
-      <code className="email-copy-value">{value}</code>
+      <span className="email-copy-value">{value}</span>
       <button
         onClick={handleCopy}
         className="email-action-btn"
