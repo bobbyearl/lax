@@ -13,8 +13,8 @@ describe('splitName', () => {
     })
   })
 
-  it('handles a single name', () => {
-    expect(splitName('Coach')).toEqual({ first: 'Coach', last: '' })
+  it('handles a single name as last name', () => {
+    expect(splitName('Coach')).toEqual({ first: '', last: 'Coach' })
   })
 
   it('handles empty string', () => {
